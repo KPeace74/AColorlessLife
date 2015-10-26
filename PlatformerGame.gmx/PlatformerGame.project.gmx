@@ -25,6 +25,13 @@
     <sprite>sprites\spr_checkpoint</sprite>
     <sprite>sprites\spr_spike</sprite>
     <sprite>sprites\spr_spike_sideways</sprite>
+    <sprites name="Main Screen">
+      <sprite>sprites\spr_main_screen</sprite>
+      <sprite>sprites\spr_start</sprite>
+      <sprite>sprites\spr_quit</sprite>
+      <sprite>sprites\spr_options</sprite>
+    </sprites>
+    <sprite>sprites\spr_double_jump</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgLoadScreen</background>
@@ -49,13 +56,8 @@
     <object>objects\obj_player</object>
     <object>objects\obj_solid</object>
     <object>objects\obj_wall</object>
-    <object>objects\obj_items</object>
     <object>objects\obj_item_parent</object>
     <object>objects\obj_example_item</object>
-    <object>objects\obj_spawner</object>
-    <object>objects\obj_GLOBAL_vars</object>
-    <object>objects\obj_loadScreen</object>
-    <object>objects\obj_pause</object>
     <object>objects\obj_ladder</object>
     <object>objects\obj_climbable</object>
     <object>objects\obj_enemy_walker</object>
@@ -65,12 +67,27 @@
     <object>objects\obj_spike</object>
     <object>objects\obj_spike_sideways</object>
     <object>objects\obj_player_dead</object>
+    <objects name="Main Screen">
+      <object>objects\obj_main_screen_bg</object>
+      <object>objects\obj_start_button</object>
+      <object>objects\obj_quit_button</object>
+      <object>objects\obj_options_button</object>
+    </objects>
+    <objects name="Initialize">
+      <object>objects\obj_spawner</object>
+      <object>objects\obj_pause</object>
+      <object>objects\obj_loadScreen</object>
+      <object>objects\obj_GLOBAL_vars</object>
+      <object>objects\obj_items</object>
+    </objects>
+    <object>objects\obj_double_jump</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmLoadScreen</room>
-    <room>rooms\rmTest</room>
+    <room>rooms\rmMainScreen</room>
     <room>rooms\rmTut</room>
     <room>rooms\room3</room>
+    <room>rooms\rmTest</room>
   </rooms>
   <constants number="1">
     <constant name="DEBUG_MODE">true</constant>

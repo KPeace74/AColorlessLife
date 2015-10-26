@@ -68,6 +68,7 @@ hp = 10
 if (initializationDone) {
 
 //Variable Initiaion
+target = obj_solid
 key_left = keyboard_check(vk_left)
 key_right = keyboard_check(vk_right)
 key_jump = keyboard_check_pressed(vk_up)
@@ -119,6 +120,7 @@ if (global.doubleJumpEnabled) {
         jumps = 1
     }
     if (jumps == 1 &amp;&amp; keyboard_check_pressed(vk_up) &amp;&amp; !place_meeting(x, y, obj_climbable)) {
+        instance_create(x, y + 16, obj_double_jump)
         jumps = 0
         vsp = -jumpspeed
     }
@@ -136,20 +138,26 @@ if (state == playerStates.CLIMBING) {
     } else {
         vsp = 0
     }
+    if (key_sprint) {
+        state = playerStates.WALKING
+    }
     if (keyboard_check_pressed(vk_left)) {
-        if (!instance_position(x - 32, y, obj_climbable)) {
+        if (!instance_position(x - 8, y, obj_climbable)) {
             state = playerStates.WALKING
         } else if (place_meeting(x - 32, y, obj_climbable) &amp;&amp; !place_meeting(x - 32, y, obj_solid)) {
-            hsp -= 3 //Moving left on a ladder
+            //hsp -= 3
             state = playerStates.CLIMBING
         }
     } else if (keyboard_check_pressed(vk_right)) {
-        if (!instance_position(x + 32, y, obj_climbable)) {
+        if (!instance_position(x + 8, y, obj_climbable)) {
             state = playerStates.WALKING
         } else if (place_meeting(x + 32, y, obj_climbable) &amp;&amp; !place_meeting(x + 32, y, obj_solid)) {
-            hsp += 3 //Moving right on a ladder
+            //hsp += 3 //Moving right on a ladder
             state = playerStates.CLIMBING
         }
+    }
+    if (state == playerStates.CLIMBING) {
+        hsp = move * 3
     }
 }
 
