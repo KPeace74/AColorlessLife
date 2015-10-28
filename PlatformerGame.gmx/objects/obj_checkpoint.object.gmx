@@ -49,7 +49,7 @@ image_speed = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.pause) {
+            <string>if (global.pause || global.stop) {
     exit
 }
 
@@ -88,7 +88,7 @@ if (unlocked) {
             <string>if (!unlocked) {
     unlocked = true
     global.checkpoint[0] = x + 16
-    global.checkpoint[1] = y + 32
+    global.checkpoint[1] = y + 48
 }
 </string>
           </argument>

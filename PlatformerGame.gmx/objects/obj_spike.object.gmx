@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>Top = place_meeting(x, y - 32, obj_wall)
+            <string>room_info = instance_nearest(0, 0, obj_room_info)
+Top = place_meeting(x, y - 32, obj_wall)
 Bottom = place_meeting(x, y + 16, obj_wall)
 
 if (Top) {
@@ -57,6 +58,7 @@ if (Top) {
           <argument>
             <kind>1</kind>
             <string>other.hp -= 10
+room_info.spikeDeaths += 1
 </string>
           </argument>
         </arguments>

@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_living</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hsp = 3
+            <string>room_info = instance_nearest(0, 0, obj_room_info)
+hsp = 3
 vsp = 0
 grav = 0.25
 hp = 10
@@ -51,7 +52,7 @@ hp = 10
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.pause) {
+            <string>if (global.pause || global.stop) {
     exit
 }
 hsp += sign(hsp) * 0.25
@@ -114,6 +115,7 @@ if (hsp &gt; 0) {
           <argument>
             <kind>1</kind>
             <string>other.hp -= 10
+room_info.ballDeaths += 1
 </string>
           </argument>
         </arguments>

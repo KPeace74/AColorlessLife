@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_speed = 0
+            <string>room_info = instance_nearest(0, 0, obj_room_info)
+image_speed = 0
 </string>
           </argument>
         </arguments>
@@ -48,7 +49,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_index = global.achievement
+            <string>
+
+image_index = global.achievement
 </string>
           </argument>
         </arguments>
@@ -74,6 +77,16 @@
             <string>global.achievement += 1
 if (room_exists(room_next(room))) {
     room_goto_next()
+    with (room_info) {
+        display = true
+    }
+    with (getPlayer()) {
+        vsp = 0
+        x = global.roomSpawn[room + 1, 0]
+        y = global.roomSpawn[room + 1, 1] + 16
+        global.checkpoint[0] = global.roomSpawn[room + 1, 0]
+        global.checkpoint[1] = global.roomSpawn[room + 1, 1] + 16
+    }
 }
 instance_destroy()
 </string>

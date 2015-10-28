@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>Left = place_meeting(x - 32, y, obj_wall)
+            <string>room_info = instance_nearest(0, 0, obj_room_info)
+Left = place_meeting(x - 32, y, obj_wall)
 Right = place_meeting(x + 32, y, obj_wall)
 if (Right) {
     image_xscale = -1
@@ -56,6 +57,7 @@ if (Right) {
           <argument>
             <kind>1</kind>
             <string>other.hp -= 10
+room_info.spikeDeaths += 1
 </string>
           </argument>
         </arguments>

@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>-1</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_living</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>room_info = instance_nearest(0, 0, obj_room_info)
 hsp = 0
 vsp = 0
 jumpspeed = global.playerJumpSpeed
@@ -61,7 +61,7 @@ hp = 10
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.pause) {
+            <string>if (global.pause || global.stop) {
     exit
 }
 
@@ -98,7 +98,7 @@ if (state == playerStates.CROUCHING) {
 
 //Makes the player fall faster if down is being held
 if (key_crouch &amp;&amp; state == playerStates.FALLING) {
-    grav = global.gameGravity + 0.4
+    grav = global.gameGravity + 0.8
 } else if (!key_crouch) {
     grav = global.gameGravity
 }
@@ -173,24 +173,21 @@ if (place_meeting(x, y + 1, obj_solid) &amp;&amp; !global.movementDisabled &amp;
 
 //Vertical Collision
 if (place_meeting(x, y + vsp, obj_solid)) { 
-
     while (!place_meeting(x, y + sign(vsp), obj_solid)) { 
         y += sign(vsp);
     }
     vsp = 0;
-     
 }
 
 y += vsp //Changing Y based on Vertical Speed
 
 //Horizontal Collision
 if (place_meeting(x+hsp, y, obj_solid)) {
-
     while (!place_meeting(x+sign(hsp), y, obj_solid)) {
         x += sign(hsp);
     }
     hsp = 0;
-    
+  
 }
 
 if (!global.movementDisabled &amp;&amp; state != playerStates.WALLJUMPING) {
@@ -285,7 +282,11 @@ if (state == playerStates.STANDING) {
     sprite_index = spr_player_crouching
     image_xscale = dirN
 } else if (state == playerStates.FALLING) {
-    sprite_index = spr_player_falling
+    if (jumps != 0) {
+        sprite_index = spr_player_falling
+    } else {
+        sprite_index = spr_player_double_jump
+    }
     image_xscale = dirN
 } else if (state == playerStates.CLIMBING) {
     sprite_index = spr_player_climbing
@@ -317,8 +318,16 @@ if (state == playerStates.STANDING) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>x = global.checkpoint[0]
-y = global.checkpoint[1]
+            <string>if (x &gt; room_width || x &lt; 0) {
+    room_info.sideDeaths += 1
+    x = global.checkpoint[0]
+    y = global.checkpoint[1]
+}
+if (y &gt; room_height) {
+    room_info.fallingDeaths += 1
+    x = global.checkpoint[0]
+    y = global.checkpoint[1]
+}
 </string>
           </argument>
         </arguments>
@@ -341,8 +350,10 @@ y = global.checkpoint[1]
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>x = 864
+            <string>if (!global.pause &amp;&amp; !global.stop) {
+x = 864
 y = 704
+}
 </string>
           </argument>
         </arguments>

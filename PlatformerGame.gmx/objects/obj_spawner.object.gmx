@@ -60,12 +60,12 @@ if (firstTime) {
     // Cycle through all objects
     for (i = 0; i &lt; objectCount; i += 1) {
         if (object_exists(i)) {
-            debugPrint("obj_spawner_Create_1: Line 8: Exists " + object_get_name(i))
+            //debugPrint("obj_spawner_Create_1: Line 8: Exists " + object_get_name(i))
             if (object_get_parent(i) == obj_spawner) {
                 objectIndex = i;
                 if (objectIndex &gt; -1) {
                     instance_create(-100, -100, objectIndex);
-                    debugPrint("obj_spawner_Create_1: Line 14: Create " + object_get_name(i))
+                    debugPrint("Creating Object..." + object_get_name(i))
                 }
             }
         } else {

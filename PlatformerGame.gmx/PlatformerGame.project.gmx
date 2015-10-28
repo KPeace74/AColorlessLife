@@ -7,10 +7,12 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\spr_wall</sprite>
+    <sprite>sprites\spr_color_wall</sprite>
     <sprite>sprites\spr_fill</sprite>
     <sprites name="Player">
       <sprite>sprites\spr_player</sprite>
       <sprite>sprites\spr_player_standing</sprite>
+      <sprite>sprites\spr_player_double_jump</sprite>
       <sprite>sprites\spr_player_walking</sprite>
       <sprite>sprites\spr_player_running</sprite>
       <sprite>sprites\spr_player_crouching</sprite>
@@ -32,6 +34,13 @@
       <sprite>sprites\spr_options</sprite>
     </sprites>
     <sprite>sprites\spr_double_jump</sprite>
+    <sprite>sprites\spr_fake_wall</sprite>
+    <sprites name="Levels">
+      <sprite>sprites\spr_levels</sprite>
+      <sprite>sprites\spr_level_locked</sprite>
+      <sprite>sprites\spr_worlds</sprite>
+    </sprites>
+    <sprite>sprites\spr_world_select</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgLoadScreen</background>
@@ -48,9 +57,11 @@
     <script>scripts\getItemInSlot.gml</script>
     <script>scripts\getItemByName.gml</script>
     <script>scripts\pickupItem.gml</script>
+    <script>scripts\isLevelUnlocked.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_Times_New_Roman</font>
+    <font>fonts\fnt_line</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>
@@ -72,6 +83,7 @@
       <object>objects\obj_start_button</object>
       <object>objects\obj_quit_button</object>
       <object>objects\obj_options_button</object>
+      <object>objects\obj_world_select</object>
     </objects>
     <objects name="Initialize">
       <object>objects\obj_spawner</object>
@@ -79,8 +91,13 @@
       <object>objects\obj_loadScreen</object>
       <object>objects\obj_GLOBAL_vars</object>
       <object>objects\obj_items</object>
+      <object>objects\obj_room_info</object>
     </objects>
     <object>objects\obj_double_jump</object>
+    <object>objects\obj_color_wall</object>
+    <object>objects\obj_fake_wall</object>
+    <object>objects\obj_living</object>
+    <object>objects\obj_world</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmLoadScreen</room>
@@ -88,6 +105,7 @@
     <room>rooms\rmTut</room>
     <room>rooms\room3</room>
     <room>rooms\rmTest</room>
+    <room>rooms\rmWorldSelect</room>
   </rooms>
   <constants number="1">
     <constant name="DEBUG_MODE">true</constant>

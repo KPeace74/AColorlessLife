@@ -35,11 +35,36 @@ global.movementDisabled = false
 global.doubleJumpEnabled = true
 global.wallJumpEnabled = false
 global.pause = false
+global.stop = false
 global.achievement = 0
+global.room_counter = noone
 
 global.checkpoint[0] = 0
 global.checkpoint[1] = 0
 
+global.roomSpawn[0, 0] = 0
+global.roomSpawn[0, 1] = 0
+global.roomSpawn[1, 0] = 0
+global.roomSpawn[1, 1] = 0
+global.roomSpawn[2, 0] = 0
+global.roomSpawn[2, 1] = 0
+global.roomSpawn[3, 0] = 64
+global.roomSpawn[3, 1] = 704
+global.roomSpawn[4, 0] = 960
+global.roomSpawn[4, 1] = 576
+
+global.levelUnlocked[0] = 1 //World 1 (Red)
+global.levelUnlocked[1] = 1 //Level 1
+/*
+Red = 1
+Orange = 2
+Yellow = 3
+Green = 4
+Cyan = 5
+Blue = 6
+Pink = 7
+Purple = 8
+*/
 enum playerStates {
     STANDING,
     WALKING,
