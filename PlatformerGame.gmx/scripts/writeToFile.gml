@@ -1,3 +1,4 @@
+var fileLocation, line, str, file, i;
 fileLocation = argument0
 line = argument1
 str = argument2

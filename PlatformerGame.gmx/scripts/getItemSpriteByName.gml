@@ -1,3 +1,5 @@
+var itemName, k;
+
 itemName = argument0
 
 for (k = 0; k <= totalItems; k++) {

@@ -7,8 +7,31 @@ Color Collectables:
 	Blue = 6
 	Pink = 7
 	Purple = 8
+Color Walls:
+	Red = 1
+	Orange = 2
+	Red-Orange = 3
+	Yellow = 4
+	Orange-Yellow = 5
+	Green = 6
+	Yellow-Green = 7
+	Cyan = 8
+	Green-Cyan = 9
+	Blue = 10
+	Cyan-Blue = 11
+	Pink = 12
+	Blue-Pink = 13
+	Purple = 14
+	Pink-Purple = 15
 RGB:
 	Red = 255, 0, 0
+	Orange = 255, 128, 0
+	Yellow = 255, 255, 0
+	Green = 0, 255, 0
+	Cyan = 0, 255, 255
+	Blue = 0, 0, 255
+	Pink = 255, 0, 255
+	Purple = 64, 0, 64
 
 Worlds:
 	Red = 1

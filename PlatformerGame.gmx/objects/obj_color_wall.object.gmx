@@ -33,7 +33,7 @@ with (fwall) {
     image_xscale = other.image_xscale
     image_yscale = other.image_yscale
 }
-/*
+
 Top = place_meeting(x, y - 1, obj_color_wall)
 TopRight = place_meeting(x + 1, y - 1, obj_color_wall)
 Right = place_meeting(x + 1, y, obj_wall)
@@ -42,7 +42,7 @@ Bottom = place_meeting(x, y + 1, obj_color_wall)
 BottomLeft = place_meeting(x - 1, y + 1, obj_color_wall)
 Left = place_meeting(x - 1, y, obj_color_wall)
 TopLeft = place_meeting(x - 1, y - 1, obj_color_wall)
-
+/*
 if (Top &amp;&amp; TopRight &amp;&amp; Right &amp;&amp; BottomRight &amp;&amp; Bottom &amp;&amp; BottomLeft &amp;&amp; Left &amp;&amp; TopLeft) {
     image_index = 1
 } else if (Top &amp;&amp; Right &amp;&amp; Bottom &amp;&amp; Left) {
@@ -121,22 +121,58 @@ image_index = 1
             <string>if (!done) {
 if (global.achievement == 0) {
     image_blend = make_colour_rgb(192, 192, 192)
-} else if (global.achievement &gt;= 1 &amp;&amp; self.color == 1) {
+}
+if (global.achievement &gt;= 1 &amp;&amp; self.color == 1) {
     image_blend = make_colour_rgb(255, 0, 0)
-} else if (global.achievement &gt;= 2 &amp;&amp; color == 2) {
-    image_blend = make_colour_rgb(255, 128, 0)
-} else if (global.achievement &gt;= 3 &amp;&amp; color == 3) {
-    image_blend = make_colour_rgb(255, 255, 0)
-} else if (global.achievement &gt;= 4 &amp;&amp; color == 4) {
-    image_blend = make_colour_rgb(0, 255, 0)
-} else if (global.achievement &gt;= 5 &amp;&amp; color == 5) {
-    image_blend = make_colour_rgb(0, 255, 255)
-} else if (global.achievement &gt;= 6 &amp;&amp; color == 6) {
-    image_blend = make_colour_rgb(0, 0, 255)
-} else if (global.achievement &gt;= 7 &amp;&amp; color == 7) {
-    image_blend = make_colour_rgb(255, 0, 255)
-} else if (global.achievement &gt;= 8 &amp;&amp; color == 8) {
-    image_blend = make_colour_rgb(64, 0, 64)
+}
+if (global.achievement &gt;= 2) {
+    if (color == 2) {
+        image_blend = make_colour_rgb(255, 128, 0)
+    } else if (color == 3) {
+        image_blend = make_colour_rgb(255, 64, 0)
+    }
+}
+if (global.achievement &gt;= 3) {
+    if (color == 4) {
+        image_blend = make_colour_rgb(255, 255, 0)
+    } else if (color == 5) {
+        image_blend = make_colour_rgb(255, 192, 0)
+    }
+}
+if (global.achievement &gt;= 4) {
+    if (color == 6) {
+        image_blend = make_colour_rgb(0, 255, 0)
+    } else if (color == 7) {
+        image_blend = make_colour_rgb(192, 255, 0)
+    }
+}
+if (global.achievement &gt;= 5) {
+    if (color == 8) {
+        image_blend = make_colour_rgb(0, 255, 255)
+    } else if (color == 9) {
+        image_blend = make_colour_rgb(0, 255, 128)
+    }
+}
+if (global.achievement &gt;= 6) {
+    if (color == 10) {
+        image_blend = make_colour_rgb(0, 0, 255)
+    } else if (color == 11) {
+        image_blend = make_colour_rgb(0, 192, 255)
+    }
+}
+if (global.achievement &gt;= 7) {
+    if (color == 12) {
+        image_blend = make_colour_rgb(255, 0, 255)
+    } else if (color == 13) {
+        image_blend = make_colour_rgb(128, 0, 255)
+    }
+}
+if (global.achievement &gt;= 8) {
+    if (color == 14) {
+        image_blend = make_colour_rgb(64, 0, 64)
+    } else if (color == 15) {
+        image_blend = make_colour_rgb(128, 0, 128)
+    }
 }
 done = true
 }
@@ -145,85 +181,256 @@ done = true
 
 if (global.achievement == 0) {
     sprite_index = spr_color_wall
-} else if (global.achievement &gt;= 1 &amp;&amp; color == 1) {
-    if (player.state == playerStates.STANDING) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+}
+if (color == 1) {   //Red
+    if (global.achievement &gt;= 1) {
+        if (player.state == playerStates.STANDING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
     }
-} else if (global.achievement &gt;= 2 &amp;&amp; color == 2) {
-    if (player.state == playerStates.WALKING) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+} else if (color == 2) {   //Orange
+    if (global.achievement &gt;= 2) {
+        if (player.state == playerStates.WALKING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
     }
-} else if (global.achievement &gt;= 3 &amp;&amp; color == 3) {
-    if (player.state == playerStates.RUNNING) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+} else if (color == 3) {   //Red-Orange
+    if (global.achievement == 1) {
+        if (player.state == playerStates.STANDING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    } else if (global.achievement &gt;= 2) {
+        if (player.state == playerStates.STANDING || player.state == playerStates.WALKING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
     }
-} else if (global.achievement &gt;= 4 &amp;&amp; color == 4) {
-    if (player.state == playerStates.FALLING &amp;&amp; player.jumps == 1) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+} else if (color == 4) {   //Yellow
+    if (global.achievement &gt;= 3) {
+        if (player.state == playerStates.RUNNING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
     }
-} else if (global.achievement &gt;= 5 &amp;&amp; color == 5) {
-    if (player.state == playerStates.FALLING &amp;&amp; player.jumps == 0) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+} else if (color == 5) { //Orange-Yellow
+    if (global.achievement == 2) {
+        if (player.state == playerStates.WALKING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    } else if (global.achievement &gt;= 3) {
+        if (player.state == playerStates.WALKING || player.state == playerStates.RUNNING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
     }
-} else if (global.achievement &gt;= 6 &amp;&amp; color == 6) {
-    if (player.state == playerStates.CLIMBING) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+} else if (color == 6) { //Green
+    if (global.achievement &gt;= 4) {
+        if (player.state == playerStates.FALLING &amp;&amp; player.jumps == 1) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
     }
-} else if (global.achievement &gt;= 7 &amp;&amp; color == 7) {
-    if (player.state == playerStates.WALLJUMPING) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+} else if (color == 7) { //Yellow-Green
+    if (global.achievement == 3) {
+        if (player.state == playerStates.RUNNING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    } else if (global.achievement &gt;= 4) {
+        if (player.state == playerStates.RUNNING || (player.state == playerStates.FALLING &amp;&amp; player.jumps == 1)) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        } 
+    }
+} else if (color == 8) { //Cyan
+    if (global.achievement &gt;= 5) {
+        if (player.state == playerStates.FALLING &amp;&amp; player.jumps == 0) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
     }
-} else if (global.achievement &gt;= 8 &amp;&amp; color == 8) {
-    if (player.state == playerStates.CROUCHING) {
-        sprite_index = -1
-    } else {
-        with (instance_nearest(x, y, obj_fake_wall)) {
-            if (!place_meeting(x, y, obj_living)) {
-                other.sprite_index = spr_color_wall
+} else if (color == 9) { //Green-Cyan
+    if (global.achievement == 4) {
+        if (player.state == playerStates.FALLING &amp;&amp; jumps == 1) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
             }
         }
+    } else if (global.achievement &gt;= 5) {
+        if (player.state == playerStates.FALLING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        } 
+    }
+} else if (color == 10) { //Blue
+    if (global.achievement &gt;= 6) {
+        if (player.state == playerStates.CLIMBING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    }
+} else if (color == 11) { //Cyan-Blue
+    if (global.achievement == 5) {
+        if (player.state == playerStates.FALLING &amp;&amp; player.jumps == 0) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    } else if (global.achievement &gt;= 6) {
+        if (player.state == playerStates.CLIMBING || (player.state == playerStates.FALLING &amp;&amp; player.jumps == 0)) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        } 
+    }
+} else if (color == 12) { //Pink
+    if (global.achievement &gt;= 7) {
+        if (player.state == playerStates.WALLJUMPING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    }
+} else if (color == 13) { //Blue-Pink
+    if (global.achievement == 6) {
+        if (player.state == playerStates.CLIMBING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    } else if (global.achievement &gt;= 7) {
+        if (player.state == playerStates.WALLJUMPING || player.state == playerStates.CLIMBING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        } 
+    }
+} else if (color == 14) { //Purple
+    if (global.achievement &gt;= 8) {
+        if (player.state == playerStates.CROUCHING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    }
+} else if (color == 15) { //Pink-Purple
+    if (global.achievement == 7) {
+        if (player.state == playerStates.WALLJUMPING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        }
+    } else if (global.achievement &gt;= 4) {
+        if (player.state == playerStates.WALLJUMPING || player.state == playerStates.CROUCHING) {
+            sprite_index = -1
+        } else {
+            with (instance_nearest(x, y, obj_fake_wall)) {
+                if (!place_meeting(x, y, obj_living)) {
+                    other.sprite_index = spr_color_wall
+                }
+            }
+        } 
     }
 }
 image_index = 1

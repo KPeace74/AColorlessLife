@@ -44,6 +44,10 @@
   </sprites>
   <backgrounds name="background">
     <background>background\bgLoadScreen</background>
+    <background>background\bgGame1</background>
+    <background>background\bgGame2</background>
+    <background>background\bgGame3</background>
+    <background>background\bgGame4</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -58,10 +62,13 @@
     <script>scripts\getItemByName.gml</script>
     <script>scripts\pickupItem.gml</script>
     <script>scripts\isLevelUnlocked.gml</script>
+    <script>scripts\loadLevel.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_Times_New_Roman</font>
     <font>fonts\fnt_line</font>
+    <font>fonts\fnt_funky</font>
+    <font>fonts\fnt_norm</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>
@@ -98,14 +105,20 @@
     <object>objects\obj_fake_wall</object>
     <object>objects\obj_living</object>
     <object>objects\obj_world</object>
+    <object>objects\obj_level</object>
+    <object>objects\obj_text_changer</object>
+    <object>objects\obj_text_drawer</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmLoadScreen</room>
     <room>rooms\rmMainScreen</room>
-    <room>rooms\rmTut</room>
-    <room>rooms\room3</room>
-    <room>rooms\rmTest</room>
     <room>rooms\rmWorldSelect</room>
+    <room>rooms\rmLevelSelect</room>
+    <rooms name="Levels">
+      <room>rooms\rmLevel_1_1</room>
+    </rooms>
+    <room>rooms\rmTest</room>
+    <room>rooms\room3</room>
   </rooms>
   <constants number="1">
     <constant name="DEBUG_MODE">true</constant>

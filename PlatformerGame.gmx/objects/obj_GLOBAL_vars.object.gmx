@@ -36,7 +36,7 @@ global.doubleJumpEnabled = true
 global.wallJumpEnabled = false
 global.pause = false
 global.stop = false
-global.achievement = 0
+global.achievement = 15
 global.room_counter = noone
 
 global.checkpoint[0] = 0
@@ -55,6 +55,51 @@ global.roomSpawn[4, 1] = 576
 
 global.levelUnlocked[0] = 1 //World 1 (Red)
 global.levelUnlocked[1] = 1 //Level 1
+
+//Level Rooms
+global.levelRooms[1, 1] = rmLevel_1_1
+/*global.levelRooms[1, 2] = rmLevel_1_2
+global.levelRooms[1, 3] = rmLevel_1_3
+global.levelRooms[1, 4] = rmLevel_1_4
+global.levelRooms[1, 5] = rmLevel_1_5
+global.levelRooms[1, 6] = rmLevel_1_6
+global.levelRooms[1, 7] = rmLevel_1_7
+global.levelRooms[1, 8] = rmLevel_1_8
+global.levelRooms[1, 9] = rmLevel_1_9
+global.levelRooms[1, 10] = rmLevel_1_10
+global.levelRooms[2, 1] = rmLevel_2_1
+global.levelRooms[2, 2] = rmLevel_2_2
+global.levelRooms[2, 3] = rmLevel_2_3
+global.levelRooms[2, 4] = rmLevel_2_4
+global.levelRooms[2, 5] = rmLevel_2_5
+global.levelRooms[2, 6] = rmLevel_2_6
+global.levelRooms[2, 7] = rmLevel_2_7
+global.levelRooms[2, 8] = rmLevel_2_8
+global.levelRooms[2, 9] = rmLevel_2_9
+global.levelRooms[2, 10] = rmLevel_2_10
+global.levelRooms[3, 1] = rmLevel_3_1
+global.levelRooms[3, 2] = rmLevel_3_2
+global.levelRooms[3, 3] = rmLevel_3_3
+global.levelRooms[3, 4] = rmLevel_3_4
+global.levelRooms[3, 5] = rmLevel_3_5
+global.levelRooms[3, 6] = rmLevel_3_6
+global.levelRooms[3, 7] = rmLevel_3_7
+global.levelRooms[3, 8] = rmLevel_3_8
+global.levelRooms[3, 9] = rmLevel_3_9
+global.levelRooms[3, 10] = rmLevel_3_10
+global.levelRooms[4, 1] = rmLevel_4_1
+global.levelRooms[4, 2] = rmLevel_4_2
+global.levelRooms[4, 3] = rmLevel_4_3
+global.levelRooms[4, 4] = rmLevel_4_4
+global.levelRooms[4, 5] = rmLevel_4_5
+global.levelRooms[4, 6] = rmLevel_4_6
+global.levelRooms[4, 7] = rmLevel_4_7
+global.levelRooms[4, 8] = rmLevel_4_8
+global.levelRooms[4, 9] = rmLevel_4_9
+global.levelRooms[4, 10] = rmLevel_4_10
+*/
+
+
 /*
 Red = 1
 Orange = 2

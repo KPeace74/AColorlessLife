@@ -1,3 +1,5 @@
+var item, variable, done, i;
+
 item = argument0
 variable = true
 done = false
