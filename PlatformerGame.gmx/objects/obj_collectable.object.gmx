@@ -82,10 +82,10 @@ if (room_exists(room_next(room))) {
     }
     with (getPlayer()) {
         vsp = 0
-        x = global.roomSpawn[room + 1, 0]
-        y = global.roomSpawn[room + 1, 1] + 16
-        global.checkpoint[0] = global.roomSpawn[room + 1, 0]
-        global.checkpoint[1] = global.roomSpawn[room + 1, 1] + 16
+        x = instance_nearest(x, y, obj_room_spawn).x
+        y = instance_nearest(x, y, obj_room_spawn).y
+        global.checkpoint[0] = instance_nearest(x, y, obj_room_spawn).x
+        global.checkpoint[1] = instance_nearest(x, y, obj_room_spawn).y
     }
 }
 instance_destroy()

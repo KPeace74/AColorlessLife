@@ -37,6 +37,7 @@ minutes = 0
 hours = 0
 sideDeaths = 0
 fallingDeaths = 0
+cannonballDeaths = 0
 </string>
           </argument>
         </arguments>
@@ -60,10 +61,16 @@ fallingDeaths = 0
           <argument>
             <kind>1</kind>
             <string>if (display) {
-    totalDeaths = spikeDeaths + ballDeaths + fallingDeaths + sideDeaths
+    totalDeaths = spikeDeaths + ballDeaths + fallingDeaths + sideDeaths + cannonballDeaths
     global.stop = true
 } else {
-    global.stop = false
+    if (instance_nearest(0, 0, obj_teleporter) != noone) {
+        if (!instance_nearest(0, 0, obj_teleporter).guiOpen) {
+            global.stop = false
+        }
+    } else {
+        global.stop = false
+    }
 }
 
 if (global.pause || global.stop) {
@@ -104,7 +111,7 @@ if (minutes == 60) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.stop) {
+            <string>if (display) {
     draw_set_alpha(1)
     draw_set_color(c_dkgray)
     draw_rectangle((view_wview/10.24), (view_hview/7.68), view_wview - (view_wview/10.24), view_hview - (view_hview/7.68), false)
@@ -117,7 +124,8 @@ if (minutes == 60) {
     draw_text((view_wview/10.24) + 15, (view_hview/7.68) + 100, "Deaths to Gray Balls: " + string(ballDeaths))
     draw_text((view_wview/10.24) + 15, (view_hview/7.68) + 150, "Falling to Death: " + string(fallingDeaths))
     draw_text((view_wview/10.24) + 15, (view_hview/7.68) + 200, "Jumping Out of the Map Deaths: " + string(sideDeaths))
-    draw_text((view_wview/10.24) + 15, (view_hview/7.68) + 250, "Total Deaths: " + string(totalDeaths))
+    draw_text((view_wview/10.24) + 15, (view_hview/7.68) + 250, "Cannonball Deaths: " + string(cannonballDeaths))
+    draw_text((view_wview/10.24) + 15, (view_hview/7.68) + 300, "Total Deaths: " + string(totalDeaths))
     if (milliseconds != 0) {
         draw_text((view_wview/10.24) + 15, (view_hview/7.68) + 300, "Total Time: " + string(hours) + " hours " + string(minutes) + " minutes " + string(seconds + (1/milliseconds)) + " seconds")
     } else {

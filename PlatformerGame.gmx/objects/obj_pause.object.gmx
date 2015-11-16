@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>if (room != rmLoadScreen) {
     if (keyboard_check_pressed(vk_escape)) {
+        debugPrint(string(window_get_width()/2))
         global.pause = !global.pause
     }
     if (global.pause &amp;&amp; keyboard_check_pressed(vk_enter)) {
@@ -58,15 +59,15 @@
             <string>if (global.pause) {
     draw_set_halign(fa_center)
     draw_set_font(fnt_Times_New_Roman)
-    draw_set_alpha(0.3)
-    draw_set_color(c_black)
-    draw_rectangle(0, 0, view_wview, view_hview, false)
     draw_set_alpha(1)
     draw_set_color(c_white)
-    draw_text_transformed(view_wview/2, 200, "Game Paused", 1, 1, 0)
-    draw_text_transformed(view_wview/2, 400, "Press [Esc] to Unpause", 0.25, 0.25, 0)
-    draw_text_transformed(view_wview/2, 450, "or", 0.25, 0.25, 0)
-    draw_text_transformed(view_wview/2, 500, "Press [Enter] to Quit", 0.25, 0.25, 0)
+    draw_rectangle(0, 0, window_get_width(), window_get_height(), false)
+    draw_set_alpha(1)
+    draw_set_color(c_white)
+    draw_text_transformed(window_get_width()/2, 200, "Game Paused", 1, 1, 0)
+    draw_text_transformed(window_get_width()/2, 400, "Press [Esc] to Unpause", 0.25, 0.25, 0)
+    draw_text_transformed(window_get_width()/2, 450, "or", 0.25, 0.25, 0)
+    draw_text_transformed(window_get_width()/2, 500, "Press [Enter] to Quit", 0.25, 0.25, 0)
 }
 </string>
           </argument>

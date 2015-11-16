@@ -3,7 +3,7 @@
   <caption></caption>
   <width>4096</width>
   <height>768</height>
-  <vsnap>32</vsnap>
+  <vsnap>16</vsnap>
   <hsnap>32</hsnap>
   <isometric>0</isometric>
   <speed>60</speed>
@@ -41,7 +41,7 @@
     <background visible="0" foreground="0" name="" x="0" y="0" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
   </backgrounds>
   <views>
-    <view visible="-1" objName="obj_player" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="512" vborder="384" hspeed="-1" vspeed="-1"/>
+    <view visible="-1" objName="obj_player" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="512" vborder="384" hspeed="7" vspeed="7"/>
     <view visible="0" objName="&lt;undefined&gt;" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
     <view visible="0" objName="&lt;undefined&gt;" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
     <view visible="0" objName="&lt;undefined&gt;" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
@@ -352,8 +352,12 @@
     <instance objName="obj_wall" x="4064" y="704" name="inst_50A8CF54" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="4064" y="736" name="inst_2049F6CD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_player" x="96" y="640" name="inst_D59A1C34" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_text_changer" x="928" y="32" name="inst_35D8DD72" locked="0" code="text = &quot;Why is everything so gray?&quot;&#xA;textColor = c_white&#xA;fadeOut = true&#xA;" scaleX="1" scaleY="22" colour="4294967295" rotation="0"/>
+    <instance objName="obj_text_changer" x="928" y="32" name="inst_35D8DD72" locked="0" code="text = &quot;Why is everything so gray?&quot;&#xA;textColor = c_white&#xA;fadeOut = true&#xA;rm = rmLevel_1_1" scaleX="1" scaleY="22" colour="4294967295" rotation="0"/>
     <instance objName="obj_text_drawer" x="-224" y="416" name="inst_D7645268" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_text_changer" x="2528" y="736" name="inst_236AFF86" locked="0" code="text = &quot;The world used to be colorful, what happened?&quot;&#xA;textColor = c_white&#xA;fadeOut = true&#xA;rm = rmLevel_1_1&#xA;" scaleX="1" scaleY="-22" colour="4294967295" rotation="0"/>
+    <instance objName="obj_room_advance" x="3968" y="640" name="inst_1F265EE8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_room_spawn" x="64" y="720" name="inst_227B39F6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_controls1" x="288" y="480" name="inst_3B748E64" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

@@ -113,7 +113,10 @@ if (hsp &gt; 0) {
           <argument>
             <kind>1</kind>
             <string>other.hp -= 10
-room_info.ballDeaths += 1
+if (!other.invinsible) {
+    room_info.ballDeaths += 1
+    other.invinsible = true
+}
 </string>
           </argument>
         </arguments>

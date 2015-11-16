@@ -39,6 +39,39 @@ climbSpeed = global.playerClimbSpeed
 state = playerStates.STANDING
 dirN = 1
 hp = 10
+alarm[0] = -1
+invinsible = false
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>x = global.checkpoint[0]
+y = global.checkpoint[1]
+view_hspeed = 10
+view_vspeed = 10
+hp = 10
+visible = true
+global.stop = false
+alarm[0] = -1
+invinsible = false
 </string>
           </argument>
         </arguments>
@@ -67,28 +100,55 @@ hp = 10
 
 if (initializationDone) {
 
+if (global.inCutscene || global.stop || global.pause) {
+    global.movementDisabled = true
+} else if (!global.inCutscene &amp;&amp; !global.stop &amp;&amp; !global.pause) {
+    global.movementDisabled = false
+}
+
 //Variable Initiaion
 target = obj_solid
-key_left = keyboard_check(vk_left)
-key_right = keyboard_check(vk_right)
-key_jump = keyboard_check_pressed(vk_up)
-key_sprint = keyboard_check(vk_shift)
-key_climb = keyboard_check(vk_up)
-key_climb_check = keyboard_check_pressed(vk_up)
-move = -key_left + key_right;
-key_crouch = keyboard_check(vk_down)
+if (!global.movementDisabled) {
+    key_left = keyboard_check(vk_left)
+    key_right = keyboard_check(vk_right)
+    key_jump = keyboard_check_pressed(vk_up)
+    if (room != rmLevel_1_1) {
+        key_sprint = keyboard_check(vk_shift)
+    } else {
+        key_sprint = 0
+    }
+    key_climb = keyboard_check(vk_up)
+    key_climb_check = keyboard_check_pressed(vk_up)
+    move = -key_left + key_right;
+    key_crouch = keyboard_check(vk_down)
+}
 
 //Left and Right movement if sprinting/normal
 if (state != playerStates.WALLJUMPING &amp;&amp; state != playerStates.CLIMBING) {
     hsp = move * movespeed + (key_sprint * sprintSpeed * move);
 }
 
+
+
 //What happens when you die
-if (hp &lt;= 0) {
+if (hp &lt;= 0 &amp;&amp; alarm[0] &lt; 0) {
     instance_create(x, y, obj_player_dead)
-    x = global.checkpoint[0]
-    y = global.checkpoint[1]
-    hp = 10
+    visible = false
+    //hp = 10
+    global.stop = true
+    alarm[0] = 30
+}
+
+if (x &gt; view_xview &amp;&amp; x &lt; view_xview + view_wview &amp;&amp; y &gt; view_yview &amp;&amp; y &lt; view_yview + view_hview) {
+    view_hspeed = -1
+    view_vspeed = -1
+    global.movementDisabled = false
+} else {
+    view_hspeed = 15
+    view_vspeed = 15
+    if (!global.inCutscene &amp;&amp; !global.stop &amp;&amp; !global.pause) {
+        global.movementDisabled = true
+    }
 }
 
 //Changes movespeed based on if they're crouching
@@ -103,16 +163,8 @@ if (key_crouch &amp;&amp; state == playerStates.FALLING) {
     grav = global.gameGravity
 }
 
-//If movementDisabled = true then the player can't move
-if (false) {
-    global.movementDisabled = true
-} else if (true) {
-    global.movementDisabled = false
-}
-
-
 //Double jumping
-if (global.doubleJumpEnabled) {
+if (global.doubleJumpEnabled &amp;&amp; !global.stop &amp;&amp; !global.movementDisabled) {
     if (place_meeting(x, y + 1, obj_solid)) {
         jumps = 2
     }
@@ -127,7 +179,7 @@ if (global.doubleJumpEnabled) {
 }
 
 //Moving up and down on ladder and moving side to side on ladder
-if (state == playerStates.CLIMBING) {
+if (state == playerStates.CLIMBING &amp;&amp; !global.movementDisabled) {
     if (!place_meeting(x, y, obj_climbable)) {
         state = playerStates.STANDING
     }
@@ -171,6 +223,14 @@ if (place_meeting(x, y + 1, obj_solid) &amp;&amp; !global.movementDisabled &amp;
     vsp = key_jump * -jumpspeed
 }
 
+//Using the boost
+if (place_meeting(x, y, obj_boost)) {
+    vsp = -14
+    if (jumps == 0) {
+        jumps = 1
+    }
+}
+
 //Vertical Collision
 if (place_meeting(x, y + vsp, obj_solid)) { 
     while (!place_meeting(x, y + sign(vsp), obj_solid)) { 
@@ -179,7 +239,26 @@ if (place_meeting(x, y + vsp, obj_solid)) {
     vsp = 0;
 }
 
+//Vertical Platform
+if (place_meeting(x, y + 4, obj_platform_vertical)) {
+    if (place_meeting(x, y, obj_platform_vertical)) {
+        y = instance_nearest(x, y + 6, obj_platform_vertical).y - 16
+    }
+    //state = playerStates.STANDING
+    if (instance_position(x, y + 1, obj_platform_vertical) != noone) {
+        vsp = instance_position(x, y + 1, obj_platform_vertical).vsp + (key_jump * -jumpspeed)
+    } else {
+        if (!key_jump) {
+            y = instance_nearest(x, y + 6, obj_platform_vertical).y - 16 + instance_nearest(x, y + 6, obj_platform_vertical).vsp
+        } else {
+            vsp = instance_nearest(x, y + 1, obj_platform_vertical).vsp + (key_jump * -jumpspeed)
+        }
+    }
+}
+
+if (hp &gt; 0 &amp;&amp; !global.pause) {
 y += vsp //Changing Y based on Vertical Speed
+}
 
 //Horizontal Collision
 if (place_meeting(x+hsp, y, obj_solid)) {
@@ -190,7 +269,24 @@ if (place_meeting(x+hsp, y, obj_solid)) {
   
 }
 
-if (!global.movementDisabled &amp;&amp; state != playerStates.WALLJUMPING) {
+//Horizontal Platform
+if (place_meeting(x, y + 1, obj_platform_horizontal)) {
+    if (!key_crouch) {
+        if (instance_position(x, y + 1, obj_platform_horizontal) != noone) {
+            hsp = instance_position(x, y + 1, obj_platform_horizontal).hsp + (move * movespeed + (key_sprint * sprintSpeed * move))
+        } else {
+            hsp = instance_nearest(x, y+1, obj_platform_horizontal).hsp + (move * movespeed + (key_sprint * sprintSpeed * move))
+        }
+    } else {
+        if (instance_position(x, y + 1, obj_platform_horizontal) != noone) {
+            hsp = instance_position(x, y + 1, obj_platform_horizontal).hsp + (move * crouchSpeed + (key_sprint * sprintSpeed * move))
+        } else {
+            hsp = instance_nearest(x, y+1, obj_platform_horizontal).hsp + (move * crouchSpeed + (key_sprint * sprintSpeed * move))
+        }
+    }
+}
+
+if (!global.movementDisabled &amp;&amp; state != playerStates.WALLJUMPING &amp;&amp; hp &gt; 0) {
     x += hsp //Changing X based on Horizontal Speed
 }
 
@@ -211,25 +307,28 @@ if (state != playerStates.CLIMBING &amp;&amp; key_climb_check &amp;&amp; state !
         x = instance_nearest(x, y, obj_climbable).x + 16
     }
 }
+if (place_meeting(x, y + 6, obj_solid)) {
+    //debugPrint("ON SOLID")
+}
 
 //Changing player states
 if (key_climb &amp;&amp; state != playerStates.WALLJUMPING &amp;&amp; place_meeting(x, y, obj_climbable) || (state == playerStates.CLIMBING &amp;&amp; place_meeting(x, y, obj_climbable))) {
     state = playerStates.CLIMBING
-} else if (hsp == 0 &amp;&amp; vsp == 0 &amp;&amp; !key_crouch &amp;&amp; place_meeting(x, y + 1, obj_solid)) {
-    if (state != playerStates.CLIMBING &amp;&amp; state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 2, obj_solid))) {
+} else if (move == 0 &amp;&amp; !key_crouch &amp;&amp; place_meeting(x, y + 6, obj_solid)) {
+    if (state != playerStates.CLIMBING &amp;&amp; state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 6, obj_solid))) {
         state = playerStates.STANDING
     }
-} else if (hsp != 0 &amp;&amp; vsp == 0 &amp;&amp; !key_sprint &amp;&amp; !key_crouch &amp;&amp; state != playerStates.CLIMBING) {
-    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 2, obj_solid))) {
+} else if (hsp != 0 &amp;&amp; place_meeting(x, y + 6, obj_solid) &amp;&amp; !key_sprint &amp;&amp; !key_crouch &amp;&amp; state != playerStates.CLIMBING) {
+    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 6, obj_solid))) {
         state = playerStates.WALKING
     }
-} else if (hsp != 0 &amp;&amp; vsp == 0 &amp;&amp; key_sprint &amp;&amp; !key_crouch) {
-    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 2, obj_solid))) {
+} else if (hsp != 0 &amp;&amp; place_meeting(x, y + 6, obj_solid) &amp;&amp; key_sprint &amp;&amp; !key_crouch) {
+    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 6, obj_solid))) {
         state = playerStates.RUNNING
     }
-} else if (vsp != 0 &amp;&amp; !place_meeting(x, y + 1, obj_solid) &amp;&amp; /*!place_meeting(x + 1, y, obj_solid) &amp;&amp; !place_meeting(x - 1, y, obj_solid) &amp;&amp;*/ !(state == playerStates.CLIMBING &amp;&amp; place_meeting(x, y, obj_climbable))) {
+} else if (vsp != 0 &amp;&amp; !place_meeting(x, y + 6, obj_solid) &amp;&amp; !place_meeting(x, y + 1, obj_solid) &amp;&amp; /*!place_meeting(x + 1, y, obj_solid) &amp;&amp; !place_meeting(x - 1, y, obj_solid) &amp;&amp;*/ !(state == playerStates.CLIMBING &amp;&amp; place_meeting(x, y, obj_climbable))) {
     state = playerStates.FALLING
-} else if (key_crouch &amp;&amp; state != playerStates.CLIMBING || (state == playerStates.CROUCHING &amp;&amp; place_meeting(x, y - 2, obj_solid))) {
+} else if (key_crouch &amp;&amp; state != playerStates.CLIMBING || (state == playerStates.CROUCHING &amp;&amp; place_meeting(x, y - 6, obj_solid))) {
     state = playerStates.CROUCHING
 } else if (global.wallJumpEnabled &amp;&amp; !place_meeting(x, y + 1, obj_solid) &amp;&amp; (place_meeting(x + 1, y, obj_solid) || place_meeting(x - 1, y, obj_solid))) {
     state = playerStates.WALLJUMPING
@@ -301,6 +400,57 @@ if (state == playerStates.STANDING) {
         </arguments>
       </action>
     </event>
+    <event eventtype="6" enumb="54">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+x = mouse_x
+y = mouse_y
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>x = instance_nearest(x, y, obj_room_spawn).x
+y = instance_nearest(x, y, obj_room_spawn).y
+global.checkpoint[0] = instance_nearest(x, y, obj_room_spawn).x
+global.checkpoint[1] = instance_nearest(x, y, obj_room_spawn).y
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="0">
       <action>
         <libid>1</libid>
@@ -333,6 +483,33 @@ if (y &gt; room_height) {
         </arguments>
       </action>
     </event>
+    <event eventtype="9" enumb="69">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (window_get_fullscreen()) {
+    window_set_fullscreen(false)
+} else {
+    window_set_fullscreen(true)
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="9" enumb="13">
       <action>
         <libid>1</libid>
@@ -351,9 +528,33 @@ if (y &gt; room_height) {
           <argument>
             <kind>1</kind>
             <string>if (!global.pause &amp;&amp; !global.stop) {
+room_goto(rmLevel_1_3)
 x = 864
 y = 704
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="8">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>game_restart()
 </string>
           </argument>
         </arguments>

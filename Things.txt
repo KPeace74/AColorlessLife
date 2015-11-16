@@ -48,3 +48,12 @@ Main Screen:
 	font = Fixedsys
 	size = 72
 
+Gameplay:
+	Max Sprint Jump Length w/ Double-Jump: 22
+	Max Jump Length w/ Double-Jump: 15
+	Max Sprint Jump Length w/out Double-Jump: 12
+	Max Jump Length w/out Double-Jump: 8
+	Max Double-Jump Height: 3.5
+	Max Jump Height: 2
+	
+

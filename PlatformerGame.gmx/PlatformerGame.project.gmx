@@ -41,6 +41,23 @@
       <sprite>sprites\spr_worlds</sprite>
     </sprites>
     <sprite>sprites\spr_world_select</sprite>
+    <sprite>sprites\spr_platform</sprite>
+    <sprite>sprites\spr_boost</sprite>
+    <sprite>sprites\spr_room_advance</sprite>
+    <sprite>sprites\spr_sign</sprite>
+    <sprite>sprites\spr_portal</sprite>
+    <sprite>sprites\spr_teleporter</sprite>
+    <sprite>sprites\sprite36</sprite>
+    <sprite>sprites\spr_teleporter_button</sprite>
+    <sprite>sprites\spr_teleporter_enter</sprite>
+    <sprite>sprites\spr_cannon</sprite>
+    <sprite>sprites\spr_cannon_animation</sprite>
+    <sprite>sprites\spr_cannonball</sprite>
+    <sprite>sprites\spr_</sprite>
+    <sprite>sprites\spr_cannonball2</sprite>
+    <sprite>sprites\spr_loadScreen</sprite>
+    <sprite>sprites\spr_controls</sprite>
+    <sprite>sprites\sprite45</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgLoadScreen</background>
@@ -48,6 +65,7 @@
     <background>background\bgGame2</background>
     <background>background\bgGame3</background>
     <background>background\bgGame4</background>
+    <background>background\bg_gray_tile</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -63,11 +81,12 @@
     <script>scripts\pickupItem.gml</script>
     <script>scripts\isLevelUnlocked.gml</script>
     <script>scripts\loadLevel.gml</script>
+    <script>scripts\clickedInRect.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_Times_New_Roman</font>
     <font>fonts\fnt_line</font>
-    <font>fonts\fnt_funky</font>
+    <font>fonts\fnt_old_formal</font>
     <font>fonts\fnt_norm</font>
   </fonts>
   <objects name="objects">
@@ -99,6 +118,7 @@
       <object>objects\obj_GLOBAL_vars</object>
       <object>objects\obj_items</object>
       <object>objects\obj_room_info</object>
+      <object>objects\obj_custscene</object>
     </objects>
     <object>objects\obj_double_jump</object>
     <object>objects\obj_color_wall</object>
@@ -108,6 +128,22 @@
     <object>objects\obj_level</object>
     <object>objects\obj_text_changer</object>
     <object>objects\obj_text_drawer</object>
+    <object>objects\obj_platform_horizontal</object>
+    <object>objects\obj_platform_vertical</object>
+    <object>objects\obj_boost</object>
+    <object>objects\obj_room_advance</object>
+    <object>objects\obj_sign</object>
+    <object>objects\obj_instruction</object>
+    <object>objects\obj_portal</object>
+    <object>objects\obj_teleporter</object>
+    <object>objects\obj_room_spawn</object>
+    <object>objects\obj_cannon</object>
+    <object>objects\obj_cannonball</object>
+    <object>objects\obj_</object>
+    <object>objects\obj_cannonball2</object>
+    <object>objects\obj_loadScreenPicture</object>
+    <object>objects\obj_controls1</object>
+    <object>objects\obj_GUI_timer</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmLoadScreen</room>
@@ -116,6 +152,9 @@
     <room>rooms\rmLevelSelect</room>
     <rooms name="Levels">
       <room>rooms\rmLevel_1_1</room>
+      <room>rooms\rmLevel_1_2</room>
+      <room>rooms\rmLevel_1_3</room>
+      <room>rooms\rmLevel_1_1111</room>
     </rooms>
     <room>rooms\rmTest</room>
     <room>rooms\room3</room>
