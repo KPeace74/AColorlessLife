@@ -62,6 +62,7 @@
     <instance objName="obj_world" x="960" y="832" name="inst_DF061D65" locked="0" code="world = 8&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_world" x="1088" y="832" name="inst_64722C73" locked="0" code="world = 9&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_world" x="1216" y="832" name="inst_DE9E8273" locked="0" code="world = 10&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_back_button" x="96" y="32" name="inst_B154AACA" locked="0" code="rm = rmMainScreen&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

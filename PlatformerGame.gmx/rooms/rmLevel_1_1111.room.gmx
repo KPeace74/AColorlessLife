@@ -515,6 +515,8 @@
     <instance objName="obj_spike" x="1664" y="128" name="inst_965CE172" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_spike" x="1696" y="128" name="inst_1034963A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_spike" x="1728" y="128" name="inst_866A25EC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_gravity_changer" x="800" y="640" name="inst_90230359" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_boost" x="1216" y="320" name="inst_61A8D4C4" locked="0" code="dir = 1&#xA;" scaleX="1" scaleY="-1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

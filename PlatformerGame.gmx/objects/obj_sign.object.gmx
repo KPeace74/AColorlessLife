@@ -79,14 +79,14 @@
 draw_set_alpha(0.75)
 if (show) {
 draw_set_color(c_white)
-draw_rectangle(x - 48, y - 96, x + 48, y - 16, false)
+draw_rectangle(x - 48, y - 16 - (ceil(string_width(text)/192) * 20), x + 48, y - 16, false)
 draw_set_alpha(1)
 draw_set_color(c_black)
-draw_rectangle(x - 48, y - 96, x + 48, y - 16, true)
+draw_rectangle(x - 48, y - 16 - (ceil(string_width(text)/192) * 20), x + 48, y - 16, true)
 draw_set_halign(fa_center)
 draw_set_font(fnt_old_formal)
 //draw_text_transformed(x, y - 32, text, 0.75, 0.75, 0)
-draw_text_ext_transformed(x, y - 96, text, 30, 192, 0.5, 0.5, 0)
+draw_text_ext_transformed(x, y - 16 - (ceil(string_width(text)/192) * 20), text, 30, 192, 0.5, 0.5, 0)
 }
 draw_set_alpha(1)
 draw_self()

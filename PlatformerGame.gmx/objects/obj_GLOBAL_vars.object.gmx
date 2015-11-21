@@ -35,10 +35,11 @@ global.movementDisabled = false
 global.doubleJumpEnabled = true
 global.wallJumpEnabled = false
 global.pause = false
+global.pauseScreen = 0
 global.stop = false
 global.achievement = 15
 global.room_counter = noone
-global.gravDir = 0
+global.gravDir = 1
 global.inLevel = false
 
 global.checkpoint[0] = 0
@@ -115,6 +116,81 @@ enum playerStates {
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Keys &amp; Key Bindings
+
+global.keycodes[vk_space] = "SPACE"
+global.keycodes[vk_lshift] = "SHIFT"
+global.keycodes[vk_lcontrol] = "CONTROL"
+global.keycodes[vk_tab] = "TAB"
+global.keycodes[vk_left] = "LEFT ARROW"
+global.keycodes[vk_right] = "RIGHT ARROW"
+global.keycodes[vk_up] = "UP ARROW"
+global.keycodes[vk_down] = "DOWN ARROW"
+global.keycodes[vk_enter] = "ENTER"
+global.keycodes[vk_backspace] = "BACKSPACE"
+global.keycodes[vk_rshift] = "SHIFT"
+global.keycodes[vk_rcontrol] = "CONTROL"
+global.keycodes[vk_lalt] = "ALT"
+global.keycodes[vk_ralt] = "ALT"
+global.keycodes[ord("A")] = "A"
+global.keycodes[ord("B")] = "B"
+global.keycodes[ord("C")] = "C"
+global.keycodes[ord("D")] = "D"
+global.keycodes[ord("E")] = "E"
+global.keycodes[ord("F")] = "F"
+global.keycodes[ord("G")] = "G"
+global.keycodes[ord("H")] = "H"
+global.keycodes[ord("I")] = "I"
+global.keycodes[ord("J")] = "J"
+global.keycodes[ord("K")] = "K"
+global.keycodes[ord("L")] = "L"
+global.keycodes[ord("M")] = "M"
+global.keycodes[ord("N")] = "N"
+global.keycodes[ord("O")] = "O"
+global.keycodes[ord("P")] = "P"
+global.keycodes[ord("Q")] = "Q"
+global.keycodes[ord("R")] = "R"
+global.keycodes[ord("S")] = "S"
+global.keycodes[ord("T")] = "T"
+global.keycodes[ord("U")] = "U"
+global.keycodes[ord("V")] = "V"
+global.keycodes[ord("W")] = "W"
+global.keycodes[ord("X")] = "X"
+global.keycodes[ord("Y")] = "Y"
+global.keycodes[ord("Z")] = "Z"
+global.keycodes[48] = "0"
+global.keycodes[49] = "1"
+global.keycodes[50] = "2"
+global.keycodes[51] = "3"
+global.keycodes[52] = "4"
+global.keycodes[53] = "5"
+global.keycodes[54] = "6"
+global.keycodes[55] = "7"
+global.keycodes[56] = "8"
+global.keycodes[57] = "9"
+
+//Location to KeyBindings.ini
+global.keyBindingsLocation = working_directory + "Prefs\" + "KeyBindings.ini"
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="3" enumb="0">
       <action>
@@ -133,7 +209,7 @@ enum playerStates {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (room != rmLoadScreen &amp;&amp; room != rmMainScreen &amp;&amp; room != rmWorldSelect &amp;&amp; room != rmLevelSelect) {
+            <string>if (room != rmControlsScreen &amp;&amp; room != rmOptionsScreen &amp;&amp; room != rmLoadScreen &amp;&amp; room != rmMainScreen &amp;&amp; room != rmWorldSelect &amp;&amp; room != rmLevelSelect) {
     global.inLevel = true
 } else {
     global.inLevel = false

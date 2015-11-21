@@ -8,6 +8,34 @@
   <parentName>obj_spawner</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>once = 0
+/*Pause Screens
+
+0 = Unpaused
+1 = Main Pause Screen
+2 = Controls
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -25,10 +53,21 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (room != rmLoadScreen) {
+            <string>
+if (global.inLevel) {
     if (keyboard_check_pressed(vk_escape)) {
-        debugPrint(string(window_get_width()/2))
         global.pause = !global.pause
+        if (!global.pause) {
+            once = 0
+            global.pauseScreen = 0
+        } else {
+            global.pauseScreen = 1
+            instance_create(100, 768 - 200, obj_pauseQuit)
+            instance_create(view_xview + view_wview/2, 768 - 300, obj_control_button)
+        }
+    }
+    if (global.pause &amp;&amp; once &lt; 2) {
+        once++
     }
     if (global.pause &amp;&amp; keyboard_check_pressed(vk_enter)) {
         game_end()
@@ -57,17 +96,32 @@
           <argument>
             <kind>1</kind>
             <string>if (global.pause) {
+    draw_self()
     draw_set_halign(fa_center)
     draw_set_font(fnt_Times_New_Roman)
     draw_set_alpha(1)
     draw_set_color(c_white)
-    draw_rectangle(0, 0, window_get_width(), window_get_height(), false)
+    //draw_rectangle(0, 0, window_get_width(), window_get_height(), false)
     draw_set_alpha(1)
     draw_set_color(c_white)
-    draw_text_transformed(window_get_width()/2, 200, "Game Paused", 1, 1, 0)
-    draw_text_transformed(window_get_width()/2, 400, "Press [Esc] to Unpause", 0.25, 0.25, 0)
-    draw_text_transformed(window_get_width()/2, 450, "or", 0.25, 0.25, 0)
-    draw_text_transformed(window_get_width()/2, 500, "Press [Enter] to Quit", 0.25, 0.25, 0)
+    depth = 0
+    draw_background(bg_pause, 0, 0)
+    if (global.pauseScreen == 1) {
+    if (instance_exists(obj_pauseQuit)) {
+        if (!instance_nearest(x, y, obj_pauseQuit).over) {
+                draw_sprite(spr_pauseQuit, 0, view_wview/2, 568)
+            } else {
+                draw_sprite(spr_pauseQuit, instance_nearest(x, y, obj_pauseQuit).image_index, view_wview/2, 568)
+            }
+        }
+    }
+    if (instance_exists(obj_control_button)) {
+        if (!instance_nearest(0, 0, obj_control_button).over) {
+            draw_sprite(spr_control_button, 0, view_wview/2, 468)
+        } else {
+            draw_sprite(spr_control_button, instance_nearest(x, y, obj_control_button).image_index, view_wview/2, 468)
+        }
+    }
 }
 </string>
           </argument>

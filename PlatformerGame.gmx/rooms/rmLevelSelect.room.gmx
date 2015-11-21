@@ -62,6 +62,7 @@
     <instance objName="obj_level" x="1024" y="864" name="inst_3E259815" locked="0" code="level = 8&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_level" x="128" y="992" name="inst_EF02AE1C" locked="0" code="level = 9&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_level" x="256" y="992" name="inst_7886307C" locked="0" code="level = 10&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_back_button" x="96" y="32" name="inst_D0CA22C6" locked="0" code="rm = rmWorldSelect&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

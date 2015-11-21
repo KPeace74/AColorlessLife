@@ -65,6 +65,18 @@ if (guiOpen) {
     }
 }
 
+if (keyboard_check_pressed(getKeyFromBinding('Interact', vk_space))) {
+    if (showing &amp;&amp; !guiOpen) {
+        global.stop = true
+        guiOpen = true
+        showing = false
+    } else if (guiOpen) {
+        numberString = ""
+        global.stop = false
+        guiOpen = false
+    }
+}
+
 if (guiOpen) {
     if (clickedInRect(view_wview/2 - 96 - 32, 250 - 32, view_wview/2 - 96 + 32, 250 + 32)) {
         numberString += "1"
@@ -207,37 +219,6 @@ if (showing) {
     draw_set_font(fnt_old_formal)
     draw_set_halign(fa_center)
     draw_text_transformed(xPos, y - 20, "Press SPACE to interact.", 0.5, 0.5, 0)
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="32">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if (showing &amp;&amp; !guiOpen) {
-    global.stop = true
-    guiOpen = true
-    showing = false
-} else if (guiOpen) {
-    numberString = ""
-    global.stop = false
-    guiOpen = false
 }
 </string>
           </argument>

@@ -47,7 +47,11 @@ Worlds:
 Main Screen:
 	font = Fixedsys
 	size = 72
-
+	stroke = 6
+Control Screen:
+	font = OCR A Std
+	size = 18
+	stroke = 2
 Gameplay:
 	Max Sprint Jump Length w/ Double-Jump: 22
 	Max Jump Length w/ Double-Jump: 15

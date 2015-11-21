@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_alpha(0.5)
+            <string>draw_set_halign(fa_center)
+draw_set_alpha(0.5)
 draw_set_color(c_white)
 draw_set_font(font)
 draw_rectangle(xPos - ((width/2) * scale), yPos, xPos + ((width/2) * scale), yPos + ((floor(string_width(text)/width) * 50) * scale), false)

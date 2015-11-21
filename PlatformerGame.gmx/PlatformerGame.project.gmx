@@ -27,11 +27,29 @@
     <sprite>sprites\spr_checkpoint</sprite>
     <sprite>sprites\spr_spike</sprite>
     <sprite>sprites\spr_spike_sideways</sprite>
+    <sprites name="Controls Screen">
+      <sprite>sprites\spr_moveleft</sprite>
+      <sprite>sprites\spr_moveright</sprite>
+      <sprite>sprites\spr_jump</sprite>
+      <sprite>sprites\spr_crouch</sprite>
+      <sprite>sprites\spr_sprint</sprite>
+      <sprite>sprites\spr_interact</sprite>
+      <sprite>sprites\spr_dismount</sprite>
+      <sprite>sprites\spr_reset</sprite>
+      <sprite>sprites\spr_climbUp</sprite>
+      <sprite>sprites\spr_climbDown</sprite>
+    </sprites>
     <sprites name="Main Screen">
       <sprite>sprites\spr_main_screen</sprite>
       <sprite>sprites\spr_start</sprite>
       <sprite>sprites\spr_quit</sprite>
       <sprite>sprites\spr_options</sprite>
+      <sprite>sprites\spr_back</sprite>
+      <sprite>sprites\spr_options_screen</sprite>
+      <sprite>sprites\spr_world_select</sprite>
+      <sprite>sprites\spr_loadScreen</sprite>
+      <sprite>sprites\spr_control_button</sprite>
+      <sprite>sprites\spr_controls_room</sprite>
     </sprites>
     <sprite>sprites\spr_double_jump</sprite>
     <sprite>sprites\spr_fake_wall</sprite>
@@ -40,7 +58,6 @@
       <sprite>sprites\spr_level_locked</sprite>
       <sprite>sprites\spr_worlds</sprite>
     </sprites>
-    <sprite>sprites\spr_world_select</sprite>
     <sprite>sprites\spr_platform</sprite>
     <sprite>sprites\spr_boost</sprite>
     <sprite>sprites\spr_room_advance</sprite>
@@ -55,9 +72,8 @@
     <sprite>sprites\spr_cannonball</sprite>
     <sprite>sprites\spr_</sprite>
     <sprite>sprites\spr_cannonball2</sprite>
-    <sprite>sprites\spr_loadScreen</sprite>
     <sprite>sprites\spr_controls</sprite>
-    <sprite>sprites\sprite45</sprite>
+    <sprite>sprites\spr_pauseQuit</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgLoadScreen</background>
@@ -66,6 +82,7 @@
     <background>background\bgGame3</background>
     <background>background\bgGame4</background>
     <background>background\bg_gray_tile</background>
+    <background>background\bg_pause</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -82,34 +99,52 @@
     <script>scripts\isLevelUnlocked.gml</script>
     <script>scripts\loadLevel.gml</script>
     <script>scripts\clickedInRect.gml</script>
+    <script>scripts\resetGravity.gml</script>
+    <script>scripts\resetObjGravity.gml</script>
+    <script>scripts\controlsScript.gml</script>
+    <script>scripts\changeKeyBindingControls.gml</script>
+    <script>scripts\getKeyBinding.gml</script>
+    <script>scripts\keyBindDraw.gml</script>
+    <script>scripts\changeKeyBinding.gml</script>
+    <script>scripts\getKeyFromBinding.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_Times_New_Roman</font>
     <font>fonts\fnt_line</font>
     <font>fonts\fnt_old_formal</font>
     <font>fonts\fnt_norm</font>
+    <font>fonts\fnt_robot</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>
-    <object>objects\obj_solid</object>
-    <object>objects\obj_wall</object>
-    <object>objects\obj_item_parent</object>
+    <object>objects\obj_gravity_changer</object>
     <object>objects\obj_example_item</object>
-    <object>objects\obj_ladder</object>
-    <object>objects\obj_climbable</object>
-    <object>objects\obj_enemy_walker</object>
-    <object>objects\obj_enemy_walker_off</object>
-    <object>objects\obj_collectable</object>
-    <object>objects\obj_checkpoint</object>
-    <object>objects\obj_spike</object>
-    <object>objects\obj_spike_sideways</object>
-    <object>objects\obj_player_dead</object>
+    <objects name="Pause Menu">
+      <object>objects\obj_pauseQuit</object>
+    </objects>
+    <objects name="Controls">
+      <object>objects\obj_moveleft</object>
+      <object>objects\obj_moveright</object>
+      <object>objects\obj_jump</object>
+      <object>objects\obj_crouch</object>
+      <object>objects\obj_sprint</object>
+      <object>objects\obj_interact</object>
+      <object>objects\obj_dismount</object>
+      <object>objects\obj_climbup</object>
+      <object>objects\obj_climbdown</object>
+      <object>objects\obj_reset_controls</object>
+    </objects>
     <objects name="Main Screen">
+      <object>objects\obj_loadScreenPicture</object>
       <object>objects\obj_main_screen_bg</object>
       <object>objects\obj_start_button</object>
       <object>objects\obj_quit_button</object>
       <object>objects\obj_options_button</object>
       <object>objects\obj_world_select</object>
+      <object>objects\obj_back_button</object>
+      <object>objects\obj_options_menu</object>
+      <object>objects\obj_control_button</object>
+      <object>objects\obj_controls_screen</object>
     </objects>
     <objects name="Initialize">
       <object>objects\obj_spawner</object>
@@ -119,35 +154,64 @@
       <object>objects\obj_items</object>
       <object>objects\obj_room_info</object>
       <object>objects\obj_custscene</object>
+      <object>objects\obj_file_handler</object>
     </objects>
-    <object>objects\obj_double_jump</object>
-    <object>objects\obj_color_wall</object>
-    <object>objects\obj_fake_wall</object>
-    <object>objects\obj_living</object>
-    <object>objects\obj_world</object>
-    <object>objects\obj_level</object>
-    <object>objects\obj_text_changer</object>
-    <object>objects\obj_text_drawer</object>
-    <object>objects\obj_platform_horizontal</object>
-    <object>objects\obj_platform_vertical</object>
-    <object>objects\obj_boost</object>
-    <object>objects\obj_room_advance</object>
-    <object>objects\obj_sign</object>
-    <object>objects\obj_instruction</object>
-    <object>objects\obj_portal</object>
-    <object>objects\obj_teleporter</object>
-    <object>objects\obj_room_spawn</object>
-    <object>objects\obj_cannon</object>
-    <object>objects\obj_cannonball</object>
-    <object>objects\obj_</object>
-    <object>objects\obj_cannonball2</object>
-    <object>objects\obj_loadScreenPicture</object>
-    <object>objects\obj_controls1</object>
-    <object>objects\obj_GUI_timer</object>
+    <objects name="Kill">
+      <object>objects\obj_cannon</object>
+      <object>objects\obj_cannonball</object>
+      <object>objects\obj_</object>
+      <object>objects\obj_cannonball2</object>
+      <object>objects\obj_enemy_walker</object>
+      <object>objects\obj_enemy_walker_off</object>
+      <object>objects\obj_spike</object>
+      <object>objects\obj_spike_sideways</object>
+    </objects>
+    <objects name="Particle Effects">
+      <object>objects\obj_player_dead</object>
+      <object>objects\obj_double_jump</object>
+    </objects>
+    <objects name="Building">
+      <object>objects\obj_wall</object>
+      <object>objects\obj_color_wall</object>
+      <object>objects\obj_fake_wall</object>
+      <object>objects\obj_room_spawn</object>
+      <object>objects\obj_platform_horizontal</object>
+      <object>objects\obj_platform_vertical</object>
+    </objects>
+    <objects name="GUI">
+      <object>objects\obj_text_changer</object>
+      <object>objects\obj_text_drawer</object>
+      <object>objects\obj_instruction</object>
+      <object>objects\obj_GUI_timer</object>
+      <object>objects\obj_controls1</object>
+    </objects>
+    <objects name="Interactive">
+      <object>objects\obj_teleporter</object>
+      <object>objects\obj_sign</object>
+      <object>objects\obj_portal</object>
+      <object>objects\obj_room_advance</object>
+      <object>objects\obj_boost</object>
+      <object>objects\obj_collectable</object>
+      <object>objects\obj_checkpoint</object>
+      <object>objects\obj_ladder</object>
+    </objects>
+    <objects name="World Level Select">
+      <object>objects\obj_world</object>
+      <object>objects\obj_level</object>
+    </objects>
+    <objects name="Parents">
+      <object>objects\obj_item_parent</object>
+      <object>objects\obj_climbable</object>
+      <object>objects\obj_living</object>
+      <object>objects\obj_solid</object>
+    </objects>
+    <object>objects\obj_pushable</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmLoadScreen</room>
     <room>rooms\rmMainScreen</room>
+    <room>rooms\rmOptionsScreen</room>
+    <room>rooms\rmControlsScreen</room>
     <room>rooms\rmWorldSelect</room>
     <room>rooms\rmLevelSelect</room>
     <rooms name="Levels">

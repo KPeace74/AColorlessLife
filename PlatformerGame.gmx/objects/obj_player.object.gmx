@@ -109,18 +109,20 @@ if (global.inCutscene || global.stop || global.pause) {
 //Variable Initiaion
 target = obj_solid
 if (!global.movementDisabled) {
-    key_left = keyboard_check(vk_left)
-    key_right = keyboard_check(vk_right)
-    key_jump = keyboard_check_pressed(vk_up)
+    key_left = keyboard_check(getKeyFromBinding('MoveLeft', vk_left))
+    key_right = keyboard_check(getKeyFromBinding('MoveRight', vk_right))
+    key_jump = keyboard_check_pressed(getKeyFromBinding('Jump', vk_up))
     if (room != rmLevel_1_1) {
-        key_sprint = keyboard_check(vk_shift)
+        key_sprint = keyboard_check(getKeyFromBinding('Sprint', vk_lshift))
     } else {
         key_sprint = 0
     }
-    key_climb = keyboard_check(vk_up)
-    key_climb_check = keyboard_check_pressed(vk_up)
+    key_dismount = keyboard_check_pressed(getKeyFromBinding('Dismount', vk_lshift))
+    key_climbup = keyboard_check(getKeyFromBinding('ClimbUp', vk_up))
+    key_climbdown = keyboard_check(getKeyFromBinding('ClimbDown', vk_down))
+    key_climb_check = keyboard_check_pressed(getKeyFromBinding('ClimbUp', vk_up))
     move = -key_left + key_right;
-    key_crouch = keyboard_check(vk_down)
+    key_crouch = keyboard_check(getKeyFromBinding('Crouch', vk_down))
 }
 
 //Left and Right movement if sprinting/normal
@@ -136,6 +138,9 @@ if (hp &lt;= 0 &amp;&amp; alarm[0] &lt; 0) {
     visible = false
     //hp = 10
     global.stop = true
+    global.gravDir = 1
+    global.gameGravity = 0.4
+    global.playerJumpSpeed = 7
     alarm[0] = 30
 }
 
@@ -158,49 +163,50 @@ if (state == playerStates.CROUCHING) {
 
 //Makes the player fall faster if down is being held
 if (key_crouch &amp;&amp; state == playerStates.FALLING) {
-    grav = global.gameGravity + 0.8
+    grav = global.gameGravity + (0.8 * global.gravDir)
 } else if (!key_crouch) {
     grav = global.gameGravity
 }
 
 //Double jumping
 if (global.doubleJumpEnabled &amp;&amp; !global.stop &amp;&amp; !global.movementDisabled) {
-    if (place_meeting(x, y + 1, obj_solid)) {
+    if (place_meeting(x, y + (1 * global.gravDir), obj_solid)) {
         jumps = 2
     }
-    if (jumps == 2 &amp;&amp; !place_meeting(x, y + 1, obj_solid)) {
+    if (jumps == 2 &amp;&amp; !place_meeting(x, y + (1 * global.gravDir), obj_solid)) {
         jumps = 1
     }
-    if (jumps == 1 &amp;&amp; keyboard_check_pressed(vk_up) &amp;&amp; !place_meeting(x, y, obj_climbable)) {
-        instance_create(x, y + 16, obj_double_jump)
+    if (jumps == 1 &amp;&amp; keyboard_check_pressed(getKeyFromBinding('Jump', vk_up)) &amp;&amp; !place_meeting(x, y, obj_climbable)) {
+        instance_create(x, y + (16 * global.gravDir), obj_double_jump)
         jumps = 0
-        vsp = -jumpspeed
+        vsp = -jumpspeed * global.gravDir
     }
 }
+
 
 //Moving up and down on ladder and moving side to side on ladder
 if (state == playerStates.CLIMBING &amp;&amp; !global.movementDisabled) {
     if (!place_meeting(x, y, obj_climbable)) {
         state = playerStates.STANDING
     }
-    if (key_climb) {
-        vsp = -climbSpeed //Moving up
-    } else if (key_crouch) {
-        vsp = climbSpeed //Moving down
+    if (key_climbup) {
+        vsp = -climbSpeed * global.gravDir //Moving up
+    } else if (key_climbdown) {
+        vsp = climbSpeed * global.gravDir //Moving down
     } else {
         vsp = 0
     }
-    if (key_sprint) {
+    if (key_dismount) {
         state = playerStates.WALKING
     }
-    if (keyboard_check_pressed(vk_left)) {
+    if (keyboard_check_pressed(getKeyFromBinding('MoveLeft', vk_left))) {
         if (!instance_position(x - 8, y, obj_climbable)) {
             state = playerStates.WALKING
         } else if (place_meeting(x - 32, y, obj_climbable) &amp;&amp; !place_meeting(x - 32, y, obj_solid)) {
             //hsp -= 3
             state = playerStates.CLIMBING
         }
-    } else if (keyboard_check_pressed(vk_right)) {
+    } else if (keyboard_check_pressed(getKeyFromBinding('MoveRight', vk_right))) {
         if (!instance_position(x + 8, y, obj_climbable)) {
             state = playerStates.WALKING
         } else if (place_meeting(x + 32, y, obj_climbable) &amp;&amp; !place_meeting(x + 32, y, obj_solid)) {
@@ -215,19 +221,26 @@ if (state == playerStates.CLIMBING &amp;&amp; !global.movementDisabled) {
 
 //Gravity pulling the player down
 if (state != playerStates.CLIMBING) {
-    if (vsp &lt; 10) vsp += grav;
+    if (vsp &lt; 15) vsp += grav;
 }
 
 //Jumping
-if (place_meeting(x, y + 1, obj_solid) &amp;&amp; !global.movementDisabled &amp;&amp; !place_meeting(x, y, obj_climbable)) {
-    vsp = key_jump * -jumpspeed
+if (place_meeting(x, y + (1 * global.gravDir), obj_solid) &amp;&amp; !global.movementDisabled &amp;&amp; !place_meeting(x, y, obj_climbable)) {
+    vsp = key_jump * -jumpspeed * global.gravDir
 }
 
 //Using the boost
 if (place_meeting(x, y, obj_boost)) {
-    vsp = -14
-    if (jumps == 0) {
-        jumps = 1
+    if (instance_nearest(x, y, obj_boost).dir == 0) {
+        vsp = -14
+        if (jumps == 0) {
+            jumps = 1
+        }
+    } else if (instance_nearest(x, y, obj_boost).dir == 1) {
+        vsp = 14
+        if (jumps == 0) {
+            jumps = 1
+        }
     }
 }
 
@@ -240,18 +253,18 @@ if (place_meeting(x, y + vsp, obj_solid)) {
 }
 
 //Vertical Platform
-if (place_meeting(x, y + 4, obj_platform_vertical)) {
+if (place_meeting(x, y + (4 * global.gravDir), obj_platform_vertical)) {
     if (place_meeting(x, y, obj_platform_vertical)) {
-        y = instance_nearest(x, y + 6, obj_platform_vertical).y - 16
+        y = instance_nearest(x, y + (6 * global.gravDir), obj_platform_vertical).y - (16 * global.gravDir)
     }
     //state = playerStates.STANDING
-    if (instance_position(x, y + 1, obj_platform_vertical) != noone) {
-        vsp = instance_position(x, y + 1, obj_platform_vertical).vsp + (key_jump * -jumpspeed)
+    if (instance_position(x, y + (1 * global.gravDir), obj_platform_vertical) != noone) {
+        vsp = instance_position(x, y + (1 * global.gravDir), obj_platform_vertical).vsp + (key_jump * -jumpspeed)
     } else {
         if (!key_jump) {
-            y = instance_nearest(x, y + 6, obj_platform_vertical).y - 16 + instance_nearest(x, y + 6, obj_platform_vertical).vsp
+            y = instance_nearest(x, y + (6 * global.gravDir), obj_platform_vertical).y - 16 + instance_nearest(x, y + (6 * global.gravDir), obj_platform_vertical).vsp
         } else {
-            vsp = instance_nearest(x, y + 1, obj_platform_vertical).vsp + (key_jump * -jumpspeed)
+            vsp = instance_nearest(x, y + (1 * global.gravDir), obj_platform_vertical).vsp + (key_jump * -jumpspeed)
         }
     }
 }
@@ -312,25 +325,25 @@ if (place_meeting(x, y + 6, obj_solid)) {
 }
 
 //Changing player states
-if (key_climb &amp;&amp; state != playerStates.WALLJUMPING &amp;&amp; place_meeting(x, y, obj_climbable) || (state == playerStates.CLIMBING &amp;&amp; place_meeting(x, y, obj_climbable))) {
+if (key_climbup &amp;&amp; state != playerStates.WALLJUMPING &amp;&amp; place_meeting(x, y, obj_climbable) || (state == playerStates.CLIMBING &amp;&amp; place_meeting(x, y, obj_climbable))) {
     state = playerStates.CLIMBING
-} else if (move == 0 &amp;&amp; !key_crouch &amp;&amp; place_meeting(x, y + 6, obj_solid)) {
-    if (state != playerStates.CLIMBING &amp;&amp; state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 6, obj_solid))) {
+} else if (move == 0 &amp;&amp; !key_crouch &amp;&amp; place_meeting(x, y + (6 * global.gravDir), obj_solid)) {
+    if (state != playerStates.CLIMBING &amp;&amp; state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - (6 * global.gravDir), obj_solid))) {
         state = playerStates.STANDING
     }
-} else if (hsp != 0 &amp;&amp; place_meeting(x, y + 6, obj_solid) &amp;&amp; !key_sprint &amp;&amp; !key_crouch &amp;&amp; state != playerStates.CLIMBING) {
-    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 6, obj_solid))) {
+} else if (hsp != 0 &amp;&amp; place_meeting(x, y + (6 * global.gravDir), obj_solid) &amp;&amp; !key_sprint &amp;&amp; !key_crouch &amp;&amp; state != playerStates.CLIMBING) {
+    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - (6 * global.gravDir), obj_solid))) {
         state = playerStates.WALKING
     }
-} else if (hsp != 0 &amp;&amp; place_meeting(x, y + 6, obj_solid) &amp;&amp; key_sprint &amp;&amp; !key_crouch) {
-    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - 6, obj_solid))) {
+} else if (hsp != 0 &amp;&amp; place_meeting(x, y + (6 * global.gravDir), obj_solid) &amp;&amp; key_sprint &amp;&amp; !key_crouch) {
+    if (state != playerStates.CROUCHING || (state == playerStates.CROUCHING &amp;&amp; !place_meeting(x, y - (6 * global.gravDir), obj_solid))) {
         state = playerStates.RUNNING
     }
-} else if (vsp != 0 &amp;&amp; !place_meeting(x, y + 6, obj_solid) &amp;&amp; !place_meeting(x, y + 1, obj_solid) &amp;&amp; /*!place_meeting(x + 1, y, obj_solid) &amp;&amp; !place_meeting(x - 1, y, obj_solid) &amp;&amp;*/ !(state == playerStates.CLIMBING &amp;&amp; place_meeting(x, y, obj_climbable))) {
+} else if (vsp != 0 &amp;&amp; !place_meeting(x, y + (6 * global.gravDir), obj_solid) &amp;&amp; !place_meeting(x, y + (1 * global.gravDir), obj_solid) &amp;&amp; /*!place_meeting(x + 1, y, obj_solid) &amp;&amp; !place_meeting(x - 1, y, obj_solid) &amp;&amp;*/ !(state == playerStates.CLIMBING &amp;&amp; place_meeting(x, y, obj_climbable))) {
     state = playerStates.FALLING
-} else if (key_crouch &amp;&amp; state != playerStates.CLIMBING || (state == playerStates.CROUCHING &amp;&amp; place_meeting(x, y - 6, obj_solid))) {
+} else if (key_crouch &amp;&amp; state != playerStates.CLIMBING || (state == playerStates.CROUCHING &amp;&amp; place_meeting(x, y - (6 * global.gravDir), obj_solid))) {
     state = playerStates.CROUCHING
-} else if (global.wallJumpEnabled &amp;&amp; !place_meeting(x, y + 1, obj_solid) &amp;&amp; (place_meeting(x + 1, y, obj_solid) || place_meeting(x - 1, y, obj_solid))) {
+} else if (global.wallJumpEnabled &amp;&amp; !place_meeting(x, y + (1 * global.gravDir), obj_solid) &amp;&amp; (place_meeting(x + 1, y, obj_solid) || place_meeting(x - 1, y, obj_solid))) {
     state = playerStates.WALLJUMPING
 }
 
@@ -392,6 +405,7 @@ if (state == playerStates.STANDING) {
 } else if (state == playerStates.WALLJUMPING) {
     sprite_index = spr_player_walljump
 }
+image_yscale = global.gravDir
 
 
 }
@@ -442,10 +456,11 @@ y = mouse_y
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>x = instance_nearest(x, y, obj_room_spawn).x
-y = instance_nearest(x, y, obj_room_spawn).y
-global.checkpoint[0] = instance_nearest(x, y, obj_room_spawn).x
-global.checkpoint[1] = instance_nearest(x, y, obj_room_spawn).y
+            <string>    x = instance_nearest(x, y, obj_room_spawn).x
+    y = instance_nearest(x, y, obj_room_spawn).y
+    global.checkpoint[0] = instance_nearest(x, y, obj_room_spawn).x
+    global.checkpoint[1] = instance_nearest(x, y, obj_room_spawn).y
+
 </string>
           </argument>
         </arguments>

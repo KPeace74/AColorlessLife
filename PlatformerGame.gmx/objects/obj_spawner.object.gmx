@@ -52,7 +52,7 @@ firstTime = true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>randomize()
 if (firstTime) {
     var objectIndex, objectCount
     objectIndex = -1;

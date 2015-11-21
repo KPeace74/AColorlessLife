@@ -28,7 +28,7 @@
             <string>room_info = instance_nearest(0, 0, obj_room_info)
 hsp = 3
 vsp = 0
-grav = 0.25
+grav = 0.4
 hp = 10
 </string>
           </argument>
@@ -55,6 +55,7 @@ hp = 10
             <string>if (global.pause || global.stop) {
     exit
 }
+
 hsp += sign(hsp) * 0.25
 
 if (place_meeting(x + hsp, y, obj_solid)) {
@@ -68,7 +69,7 @@ if (place_meeting(x + hsp, y, obj_solid)) {
 
 x += hsp
 
-if (vsp &lt; 10) vsp += grav;
+if (vsp &lt; 15) vsp += grav;
 
 if (place_meeting(x, y + vsp, obj_solid)) { 
 
