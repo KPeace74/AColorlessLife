@@ -48,7 +48,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!over) {
+            <string>if (position_meeting(mouse_x, mouse_y, self)) {
+    over = true
+} else {
+    over = false
+}
+
+if (!over) {
     image_speed = 0
     image_index = 0
 } else {
@@ -56,11 +62,6 @@
     if (image_index &gt;= 8) {
         image_index = 1
     }
-}
-if (position_meeting(mouse_x, mouse_y, self)) {
-    over = true
-} else {
-    over = false
 }
 
 </string>

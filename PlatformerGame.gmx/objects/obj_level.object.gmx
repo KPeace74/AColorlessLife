@@ -26,7 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>image_speed = 0
-
+image_xscale = 1/3
+image_yscale = 1/3
+over = false
 levelPos[0, 0] = room_width/2 - 150
 levelPos[0, 1] = room_height/2 - 150
 levelPos[1, 0] = room_width/2
@@ -69,7 +71,13 @@ levelPos[9, 1] = room_height/2 + 300
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (isLevelUnlocked(global.worldSelectColor, level)) {
+            <string>if (position_meeting(mouse_x, mouse_y, self)) {
+    over = true
+} else {
+    over = false
+}
+
+if (isLevelUnlocked(global.worldSelectColor, level)) {
     image_index = level - 1
     if (global.worldSelectColor == 1) {
         image_blend = make_colour_rgb(255, 0, 0)
@@ -124,6 +132,35 @@ y = levelPos[level - 1, 1]
             <string>if (isLevelUnlocked(global.worldSelectColor, level)) {
     loadLevel(global.worldSelectColor, level)
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self()
+if (over) {
+    draw_set_color(c_white)
+    draw_set_alpha(0.2)
+    draw_circle(x - 1, y - 1, 48, false)
+}
+draw_set_alpha(1)
 </string>
           </argument>
         </arguments>

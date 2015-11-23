@@ -96,6 +96,14 @@ if (room != rmOptionsScreen) {
     global.pauseScreen = 2
     instance_create(view_xview + view_wview/2, 192, obj_moveleft)
     instance_create(view_xview + view_wview/2, 224, obj_moveright)
+    instance_create(view_xview + view_wview/2, 256, obj_jump)
+    instance_create(view_xview + view_wview/2, 288, obj_crouch)
+    instance_create(view_xview + view_wview/2, 320, obj_sprint)
+    instance_create(view_xview + view_wview/2, 352, obj_interact)
+    instance_create(view_xview + view_wview/2, 384, obj_dismount)
+    instance_create(view_xview + view_wview/2, 416, obj_climbup)
+    instance_create(view_xview + view_wview/2, 448, obj_climbdown)
+    instance_create(view_xview + view_wview/2, 480, obj_reset_controls)
     debugPrint(string(global.pauseScreen))
 }
 </string>

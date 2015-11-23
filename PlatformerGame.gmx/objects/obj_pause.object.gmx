@@ -3,7 +3,7 @@
   <spriteName>spr_fill</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1</depth>
   <persistent>-1</persistent>
   <parentName>obj_spawner</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -106,20 +106,150 @@ if (global.inLevel) {
     draw_set_color(c_white)
     depth = 0
     draw_background(bg_pause, 0, 0)
+    depth = -2
     if (global.pauseScreen == 1) {
-    if (instance_exists(obj_pauseQuit)) {
-        if (!instance_nearest(x, y, obj_pauseQuit).over) {
-                draw_sprite(spr_pauseQuit, 0, view_wview/2, 568)
-            } else {
-                draw_sprite(spr_pauseQuit, instance_nearest(x, y, obj_pauseQuit).image_index, view_wview/2, 568)
+        if (instance_exists(obj_pauseQuit)) {
+            if (!instance_nearest(x, y, obj_pauseQuit).over) {
+                    draw_sprite(spr_pauseQuit, 0, view_wview/2, 568)
+                } else {
+                    draw_sprite(spr_pauseQuit, instance_nearest(x, y, obj_pauseQuit).image_index, view_wview/2, 568)
+                }
             }
         }
-    }
-    if (instance_exists(obj_control_button)) {
-        if (!instance_nearest(0, 0, obj_control_button).over) {
-            draw_sprite(spr_control_button, 0, view_wview/2, 468)
-        } else {
-            draw_sprite(spr_control_button, instance_nearest(x, y, obj_control_button).image_index, view_wview/2, 468)
+        if (instance_exists(obj_control_button)) {
+            if (!instance_nearest(0, 0, obj_control_button).over) {
+                draw_sprite(spr_control_button, 0, view_wview/2, 468)
+            } else {
+                draw_sprite(spr_control_button, instance_nearest(x, y, obj_control_button).image_index, view_wview/2, 468)
+            }
+    } else if (global.pauseScreen == 2) {
+        draw_set_colour(c_white)
+        draw_set_alpha(1)
+        draw_set_font(fnt_robot)
+        draw_set_halign(fa_left)
+        if (instance_exists(obj_moveleft)) {
+            if (!instance_nearest(0, 0, obj_moveleft).over) {
+                draw_sprite(spr_moveleft, 0, view_wview/2, 192)
+            } else {
+                draw_sprite(spr_moveleft, 1, view_wview/2, 192)
+            }
+            if (instance_nearest(0, 0, obj_moveleft).active) {
+                debugPrint(string(obj_moveleft.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_moveleft.sprite_width/2) + 5, 192 - (obj_moveleft.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_moveleft.sprite_width/2) + 5, 192 - (obj_moveleft.sprite_height/2) + 2, instance_nearest(0, 0, obj_moveleft).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_moveright)) {
+            if (!instance_nearest(0, 0, obj_moveright).over) {
+                draw_sprite(spr_moveright, 0, view_wview/2, 224)
+            } else {
+                draw_sprite(spr_moveright, 1, view_wview/2, 224)
+            }
+            if (instance_nearest(0, 0, obj_moveright).active) {
+                debugPrint(string(obj_moveright.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_moveright.sprite_width/2) + 5, 224 - (obj_moveright.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_moveright.sprite_width/2) + 5, 224 - (obj_moveright.sprite_height/2) + 2, instance_nearest(0, 0, obj_moveright).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_jump)) {
+            if (!instance_nearest(0, 0, obj_jump).over) {
+                draw_sprite(spr_jump, 0, view_wview/2, 256)
+            } else {
+                draw_sprite(spr_jump, 1, view_wview/2, 256)
+            }
+            if (instance_nearest(0, 0, obj_jump).active) {
+                debugPrint(string(obj_jump.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_jump.sprite_width/2) + 5, 256 - (obj_jump.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_jump.sprite_width/2) + 5, 256 - (obj_jump.sprite_height/2) + 2, instance_nearest(0, 0, obj_jump).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_crouch)) {
+            if (!instance_nearest(0, 0, obj_crouch).over) {
+                draw_sprite(spr_crouch, 0, view_wview/2, 288)
+            } else {
+                draw_sprite(spr_crouch, 1, view_wview/2, 288)
+            }
+            if (instance_nearest(0, 0, obj_crouch).active) {
+                debugPrint(string(obj_crouch.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_crouch.sprite_width/2) + 5, 288 - (obj_crouch.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_crouch.sprite_width/2) + 5, 288 - (obj_crouch.sprite_height/2) + 2, instance_nearest(0, 0, obj_crouch).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_sprint)) {
+            if (!instance_nearest(0, 0, obj_sprint).over) {
+                draw_sprite(spr_sprint, 0, view_wview/2, 320)
+            } else {
+                draw_sprite(spr_sprint, 1, view_wview/2, 320)
+            }
+            if (instance_nearest(0, 0, obj_sprint).active) {
+                debugPrint(string(obj_sprint.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_sprint.sprite_width/2) + 5, 320 - (obj_sprint.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_sprint.sprite_width/2) + 5, 320 - (obj_sprint.sprite_height/2) + 2, instance_nearest(0, 0, obj_sprint).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_interact)) {
+            if (!instance_nearest(0, 0, obj_interact).over) {
+                draw_sprite(spr_interact, 0, view_wview/2, 352)
+            } else {
+                draw_sprite(spr_interact, 1, view_wview/2, 352)
+            }
+            if (instance_nearest(0, 0, obj_interact).active) {
+                debugPrint(string(obj_interact.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_interact.sprite_width/2) + 5, 352 - (obj_interact.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_interact.sprite_width/2) + 5, 352 - (obj_interact.sprite_height/2) + 2, instance_nearest(0, 0, obj_interact).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_dismount)) {
+            if (!instance_nearest(0, 0, obj_dismount).over) {
+                draw_sprite(spr_dismount, 0, view_wview/2, 384)
+            } else {
+                draw_sprite(spr_dismount, 1, view_wview/2, 384)
+            }
+            if (instance_nearest(0, 0, obj_dismount).active) {
+                debugPrint(string(obj_dismount.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_dismount.sprite_width/2) + 5, 384 - (obj_dismount.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_dismount.sprite_width/2) + 5, 384 - (obj_dismount.sprite_height/2) + 2, instance_nearest(0, 0, obj_dismount).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_climbup)) {
+            if (!instance_nearest(0, 0, obj_climbup).over) {
+                draw_sprite(spr_climbUp, 0, view_wview/2, 416)
+            } else {
+                draw_sprite(spr_climbUp, 1, view_wview/2, 416)
+            }
+            if (instance_nearest(0, 0, obj_climbup).active) {
+                debugPrint(string(obj_climbup.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_climbup.sprite_width/2) + 5, 416 - (obj_climbup.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_climbup.sprite_width/2) + 5, 416 - (obj_climbup.sprite_height/2) + 2, instance_nearest(0, 0, obj_climbup).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_climbdown)) {
+            if (!instance_nearest(0, 0, obj_climbdown).over) {
+                draw_sprite(spr_climbDown, 0, view_wview/2, 448)
+            } else {
+                draw_sprite(spr_climbDown, 1, view_wview/2, 448)
+            }
+            if (instance_nearest(0, 0, obj_climbdown).active) {
+                debugPrint(string(obj_climbdown.sprite_width/2))
+                draw_text_transformed(view_wview/2 + (obj_climbdown.sprite_width/2) + 5, 448 - (obj_climbdown.sprite_height/2) + 2, "PRESS ANY KEY", 0.5, 0.5, 0)
+            } else {
+                draw_text_transformed(view_wview/2 + (obj_climbdown.sprite_width/2) + 5, 448 - (obj_climbdown.sprite_height/2) + 2, instance_nearest(0, 0, obj_climbdown).keytext, 0.5, 0.5, 0)
+            }
+        }
+        if (instance_exists(obj_reset_controls)) {
+            if (!instance_nearest(0, 0, obj_reset_controls).over) {
+                draw_sprite(spr_reset, 0, view_wview/2, 480)
+            } else {
+                draw_sprite(spr_reset, 1, view_wview/2, 480)
+            }
         }
     }
 }

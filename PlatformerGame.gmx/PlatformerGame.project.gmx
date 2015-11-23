@@ -6,8 +6,7 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_wall</sprite>
-    <sprite>sprites\spr_color_wall</sprite>
+    <sprite>sprites\sprite63</sprite>
     <sprite>sprites\spr_fill</sprite>
     <sprites name="Player">
       <sprite>sprites\spr_player</sprite>
@@ -19,15 +18,8 @@
       <sprite>sprites\spr_player_falling</sprite>
       <sprite>sprites\spr_player_walljump</sprite>
       <sprite>sprites\spr_player_climbing</sprite>
-      <sprite>sprites\spr_player_death</sprite>
     </sprites>
-    <sprite>sprites\spr_ladder</sprite>
-    <sprite>sprites\spr_enemy_walker</sprite>
-    <sprite>sprites\spr_color_collectables</sprite>
-    <sprite>sprites\spr_checkpoint</sprite>
-    <sprite>sprites\spr_spike</sprite>
-    <sprite>sprites\spr_spike_sideways</sprite>
-    <sprites name="Controls Screen">
+    <sprites name="Controls">
       <sprite>sprites\spr_moveleft</sprite>
       <sprite>sprites\spr_moveright</sprite>
       <sprite>sprites\spr_jump</sprite>
@@ -51,29 +43,54 @@
       <sprite>sprites\spr_control_button</sprite>
       <sprite>sprites\spr_controls_room</sprite>
     </sprites>
-    <sprite>sprites\spr_double_jump</sprite>
-    <sprite>sprites\spr_fake_wall</sprite>
     <sprites name="Levels">
-      <sprite>sprites\spr_levels</sprite>
+      <sprite>sprites\spr_levels1</sprite>
       <sprite>sprites\spr_level_locked</sprite>
       <sprite>sprites\spr_worlds</sprite>
+      <sprite>sprites\spr_levels</sprite>
     </sprites>
-    <sprite>sprites\spr_platform</sprite>
-    <sprite>sprites\spr_boost</sprite>
-    <sprite>sprites\spr_room_advance</sprite>
-    <sprite>sprites\spr_sign</sprite>
-    <sprite>sprites\spr_portal</sprite>
-    <sprite>sprites\spr_teleporter</sprite>
-    <sprite>sprites\sprite36</sprite>
-    <sprite>sprites\spr_teleporter_button</sprite>
-    <sprite>sprites\spr_teleporter_enter</sprite>
-    <sprite>sprites\spr_cannon</sprite>
-    <sprite>sprites\spr_cannon_animation</sprite>
-    <sprite>sprites\spr_cannonball</sprite>
-    <sprite>sprites\spr_</sprite>
-    <sprite>sprites\spr_cannonball2</sprite>
-    <sprite>sprites\spr_controls</sprite>
-    <sprite>sprites\spr_pauseQuit</sprite>
+    <sprites name="Pause Menu">
+      <sprite>sprites\spr_pauseQuit</sprite>
+    </sprites>
+    <sprites name="Kill">
+      <sprite>sprites\spr_cannon</sprite>
+      <sprite>sprites\spr_cannon_animation</sprite>
+      <sprite>sprites\spr_cannonball</sprite>
+      <sprite>sprites\spr_</sprite>
+      <sprite>sprites\spr_cannonball2</sprite>
+      <sprite>sprites\spr_enemy_walker</sprite>
+      <sprite>sprites\spr_spike</sprite>
+      <sprite>sprites\spr_spike_sideways</sprite>
+    </sprites>
+    <sprites name="Particle Effects">
+      <sprite>sprites\spr_double_jump</sprite>
+      <sprite>sprites\spr_player_death</sprite>
+    </sprites>
+    <sprites name="Building">
+      <sprite>sprites\spr_wall</sprite>
+      <sprite>sprites\spr_color_wall</sprite>
+      <sprite>sprites\spr_fake_wall</sprite>
+      <sprite>sprites\spr_platform</sprite>
+    </sprites>
+    <sprites name="GUI">
+      <sprite>sprites\spr_controls</sprite>
+    </sprites>
+    <sprites name="Teleporter">
+      <sprite>sprites\sprite36</sprite>
+      <sprite>sprites\spr_teleporter</sprite>
+      <sprite>sprites\spr_teleporter_button</sprite>
+      <sprite>sprites\spr_teleporter_enter</sprite>
+    </sprites>
+    <sprites name="Interactive">
+      <sprite>sprites\spr_sign</sprite>
+      <sprite>sprites\spr_portal</sprite>
+      <sprite>sprites\spr_room_advance</sprite>
+      <sprite>sprites\spr_boost</sprite>
+      <sprite>sprites\spr_color_collectables</sprite>
+      <sprite>sprites\spr_checkpoint</sprite>
+      <sprite>sprites\spr_ladder</sprite>
+      <sprite>sprites\spr_gravChanger</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bgLoadScreen</background>
@@ -107,6 +124,7 @@
     <script>scripts\keyBindDraw.gml</script>
     <script>scripts\changeKeyBinding.gml</script>
     <script>scripts\getKeyFromBinding.gml</script>
+    <script>scripts\groovify.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_Times_New_Roman</font>
@@ -117,7 +135,6 @@
   </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>
-    <object>objects\obj_gravity_changer</object>
     <object>objects\obj_example_item</object>
     <objects name="Pause Menu">
       <object>objects\obj_pauseQuit</object>
@@ -194,6 +211,7 @@
       <object>objects\obj_collectable</object>
       <object>objects\obj_checkpoint</object>
       <object>objects\obj_ladder</object>
+      <object>objects\obj_gravity_changer</object>
     </objects>
     <objects name="World Level Select">
       <object>objects\obj_world</object>
