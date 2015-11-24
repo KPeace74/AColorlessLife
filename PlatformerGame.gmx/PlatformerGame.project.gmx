@@ -90,7 +90,10 @@
       <sprite>sprites\spr_checkpoint</sprite>
       <sprite>sprites\spr_ladder</sprite>
       <sprite>sprites\spr_gravChanger</sprite>
+      <sprite>sprites\spr_gravChanger2</sprite>
+      <sprite>sprites\spr_break</sprite>
     </sprites>
+    <sprite>sprites\spr_crumble</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bgLoadScreen</background>
@@ -212,6 +215,7 @@
       <object>objects\obj_checkpoint</object>
       <object>objects\obj_ladder</object>
       <object>objects\obj_gravity_changer</object>
+      <object>objects\obj_gravity_changer2</object>
     </objects>
     <objects name="World Level Select">
       <object>objects\obj_world</object>
@@ -224,6 +228,8 @@
       <object>objects\obj_solid</object>
     </objects>
     <object>objects\obj_pushable</object>
+    <object>objects\obj_break</object>
+    <object>objects\obj_crumble</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmLoadScreen</room>
